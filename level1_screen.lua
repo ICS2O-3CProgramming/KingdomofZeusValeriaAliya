@@ -17,6 +17,12 @@ local scene = composer.newScene(sceneName)
 --LOCAL VARIABLES
 ----------------------------------------------------------------------------
 local bkg
+local bookClosed
+local bookOpen
+
+-----------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+------------------------------------------------------------------------------------
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -27,14 +33,33 @@ function scene:create( event )
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
   --create the background image
-   bkg = display.newImageRect("Level1Images/Level1ScreenValeriaV.png", 0, 0, 0, 0)
-   bkg.x = 510
-   bkg.y = 385
-   bkg.width = display.contentWidth
-   bkg.height = display.contentHeight
-   -- --Associating display objects with this scene
-   sceneGroup:insert(bkg)
-   
+  bkg = display.newImageRect("Level1Images/Level1ScreenValeriaV.png", 0, 0, 0, 0)
+  bkg.x = 510
+  bkg.y = 385
+  bkg.width = display.contentWidth
+  bkg.height = display.contentHeight
+  --Associating display objects with this scene
+  sceneGroup:insert(bkg)
+  
+  --create the closed book
+  bookClosed = display.newImage("Level1Images/book1.png")
+  bookClosed.x = display.contentWidth/2
+  bookClosed.y = display.contentHeight/2
+  bookClosed.width = 500
+  bookClosed.height = 600
+  bookClosed.alpha = 1
+  --Associating display objects with this scene
+  sceneGroup:insert(bookClosed)
+
+  --create the open book
+  bookOpen = display.newImage("Level1Images/book4.png")
+  bookOpen.x = display.contentWidth/2
+  bookOpen.y = display.contentHeight/2
+  bookOpen.width = 750
+  bookOpen.height = 600
+  bookOpen.alpha = 0
+  --Associating display objects with this scene
+  sceneGroup:insert(bookOpen)
 end
  
  
