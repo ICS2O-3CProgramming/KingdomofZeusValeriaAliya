@@ -1,3 +1,9 @@
+-----------------------------------------------------------------------------------------
+-- splash screen.lua
+-- Created by: Valeria Veverita
+-- ICS2O
+-- Description: This is the splash screen that displays the animated company logo
+
 local composer = require( "composer" )
 
 --give the name to the scene
@@ -26,14 +32,7 @@ local companyFire9
 
 --copany name
 local name1
-local name2
-local name3
-local name4
-local name5
-local name6
-local name7
-local name8
-local name9
+
 
 --sound variables
 local bkgSound
@@ -71,23 +70,7 @@ local function setFire( )
 end
 
 local function burnName( )
-    transition.to(name, {alpha = 1, time = 1200})
-    transition.to(name2, {alpha = 1, time = 1500})
-    transition.to(name, {alpha = 0, time = 1500})
-    transition.to(name3, {alpha = 1, time = 1800})
-    transition.to(name2, {alpha = 0, time = 1800})
-    transition.to(name4, {alpha = 1, time = 2100})
-    transition.to(name3, {alpha = 0, time = 2100})
-    transition.to(name5, {alpha = 1, time = 2300})
-    transition.to(name4, {alpha = 0, time = 2300})
-    transition.to(name6, {alpha = 1, time = 2500})
-    transition.to(name5, {alpha = 0, time = 2500})
-    transition.to(name7, {alpha = 1, time = 2600})
-    transition.to(name6, {alpha = 0, time = 2600})
-    transition.to(name8, {alpha = 1, time = 2700})
-    transition.to(name7, {alpha = 0, time = 2700})
-    transition.to(name9, {alpha = 1, time = 2800})
-    transition.to(name8, {alpha = 0, time = 2800})
+    transition.to(name1, {alpha = 1, time = 2000})
 end
 
 local function titlePlay( )
@@ -215,94 +198,17 @@ function scene:create( event )
 
     -- CREATE THE NAME OF THE COMPANY
     --create the first layer
-    name = display.newImage("Images/GameVille1.png")
-    --set the position, size and visibility
-    name.x = display.contentWidth/2-40
-    name.y = 700
-    name.width = 500
-    name.height = 100
-    name.alpha = 0
-    sceneGroup:insert(name)
-
-    --create the second layer
-    name2 = display.newImage("Images/GameVille2.png")
-    --set the position, size and visibility
-    name2.x = display.contentWidth/2-40
-    name2.y = 700
-    name2.width = 500
-    name2.height = 100
-    name2.alpha = 0
-    sceneGroup:insert(name2)
-
-    --create the third layer
-    name3 = display.newImage("Images/GameVille3.png")
-    --set the position, size and visibility
-    name3.x = display.contentWidth/2-40
-    name3.y = 700
-    name3.width = 500
-    name3.height = 100
-    name3.alpha = 0
-    sceneGroup:insert(name3)
-     
-    --create the fourth layer
-    name4 = display.newImage("Images/GameVille4.png")
-    --set the position, size and visibility
-    name4.x = display.contentWidth/2-40
-    name4.y = 700
-    name4.width = 500
-    name4.height = 100
-    name4.alpha = 0
-    sceneGroup:insert(name4)
-
-    --create the fifth layer
-    name5 = display.newImage("Images/GameVille5.png")
-    --set the position, size and visibility
-    name5.x = display.contentWidth/2-40
-    name5.y = 700
-    name5.width = 500
-    name5.height = 100
-    name5.alpha = 0
-    sceneGroup:insert(name5)
-
-    --create the sixth layer
-    name6 = display.newImage("Images/GameVille6.png")
-    --set the position, size and visibility
-    name6.x = display.contentWidth/2-40
-    name6.y = 700
-    name6.width = 500
-    name6.height = 100
-    name6.alpha = 0
-    sceneGroup:insert(name6)
-
-    --create the seventh layer
-    name7 = display.newImage("Images/GameVille7.png")
-    --set the position, size and visibility
-    name7.x = display.contentWidth/2-40
-    name7.y = 700
-    name7.width = 500
-    name7.height = 100
-    name7.alpha = 0
-    sceneGroup:insert(name7)
-
-    --create the eighth layer
-    name8 = display.newImage("Images/GameVille8.png")
-    --set the position, size and visibility
-    name8.x = display.contentWidth/2-40
-    name8.y = 700
-    name8.width = 500
-    name8.height = 100
-    name8.alpha = 0
-    sceneGroup:insert(name8)
+   
 
     --create the nineth layer
-    name9 = display.newImage("Images/GameVille9.png")
+    name1 = display.newImage("Images/GameVille9.png")
     --set the position, size and visibility
-    name9.x = display.contentWidth/2-40
-    name9.y = 700
-    name9.width = 500
-    name9.height = 100
-    name9.alpha = 0
-    sceneGroup:insert(name9)
+    name1.x = display.contentWidth/2-40
+    name1.y = 700
+    name1.width = 500
+    name1.height = 100
+    name1.alpha = 0
+    sceneGroup:insert(name1)
 
     ------------------------------------------------------------------------------
     --CREATE THE LETTERS
