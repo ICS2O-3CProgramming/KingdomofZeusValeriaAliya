@@ -23,6 +23,10 @@ local bookOpen
 -----------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------
+local function openBook()
+  transition.to(bookClosed, {alpha = 0, time = 1000})
+  transition.to(bookOpen, {alpha = 1, time = 1000})
+end
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -74,7 +78,7 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
- 
+       timer.performWithDelay(500, openBook)
     end
 end
  
