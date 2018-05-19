@@ -52,9 +52,9 @@ end
 
 -----------------------------------------------------------------------------------------
 
--- Creating Transition to Level1 Screen
-local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "fade", time = 300})
+-- Creating Transition to LevelSelect Screen
+local function LevelSelectScreenTransition( )
+    composer.gotoScene( "Select_screen", {effect = "fade", time = 300})
 end    
 
 -----------------------------------------------------------------------------------------
@@ -138,8 +138,8 @@ function scene:create( event )
             width = 250,
             height = 150,
 
-            -- When the button is released, call the Level1 screen transition function
-            onRelease = Level1ScreenTransition   
+            -- When the button is released, call the LevelSelect screen transition function
+            onRelease = LevelSelectScreenTransition   
 
        })
     playButton.alpha = 0
@@ -161,7 +161,7 @@ function scene:create( event )
             width = 250,
             height = 150,
 
-            -- When the button is released, call the Level1 screen transition function
+            -- When the button is released, call the LevelSelect screen transition function
             onRelease = CreditsTransition 
 
 
