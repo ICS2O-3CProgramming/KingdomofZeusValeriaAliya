@@ -49,6 +49,7 @@ local wrong = 3
 --background sound
 local bkgSound
 local bkgChannel
+local bkgStop
 
 --WrongSound
 local wrongSound
@@ -486,7 +487,7 @@ function scene:hide( event )
         -- Code here runs immediately after the scene goes entirely off screen
         RemoveEventListeners()
         RemoveImageAnswers()
-        audio.stop(bkgChannel)
+        bkgStop = audio.stop(bkgChannel)
     end
 end
  

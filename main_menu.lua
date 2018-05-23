@@ -250,7 +250,7 @@ function scene:show( event )
         -- Code here runs when the scene is entirely on screen
          timer.performWithDelay(1000,  moveTitle)
          glowTitle()
-         bkgChannel = audio.play(bkgSound)
+         bkgChannel = audio.play(bkgSound,{ channel=1, loops=-1 })
  
     end
 end

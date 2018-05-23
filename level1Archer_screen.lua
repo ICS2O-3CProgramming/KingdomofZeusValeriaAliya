@@ -49,6 +49,7 @@ local wrong = 3
 --background sound
 local bkgSound
 local bkgChannel
+local bkgStop
 
 --WrongSound
 local wrongSound
@@ -470,7 +471,7 @@ function scene:show( event )
       timer.performWithDelay(4500, moveArcher2)
       timer.performWithDelay(5600, RestartLevel1)
       Level1()
-      bkgChannel = audio.play(bkgSound)
+      bkgChannel = audio.play(bkgSound,{ channel=2})
     end
 end
  
@@ -488,7 +489,7 @@ function scene:hide( event )
         -- Code here runs immediately after the scene goes entirely off screen
         RemoveEventListeners()
         RemoveImageAnswers()
-        audio.stop(bkgSound)
+        bkgStop = audio.stop(2)
     end
 end
  
