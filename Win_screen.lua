@@ -24,6 +24,7 @@ local scene = composer.newScene(sceneName)
  local backButton
  local bkgSound
  local bkgChannel
+ local bkgStop
  local pannel
  -------------------------------------------------------------------------------------
  --LOCAL FUNCTIONS
@@ -108,7 +109,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-        audio.stop(bkgChannel)
+        bkgStop = audio.stop(bkgChannel)
  
     end
 end
