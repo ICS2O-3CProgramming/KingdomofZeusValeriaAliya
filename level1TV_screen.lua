@@ -65,7 +65,8 @@ local correctChannel
 --this function is responsible for animating the book
 local function openBook()
   transition.to(bookClosed, {alpha = 0, time = 1000})
-  transition.to(bookOpen, {alpha = 1, time = 1000})
+  transition.to(questionText, {alpha = 1, time = 700})
+  transition.to(bookOpen, {alpha = 1, time = 700})
   transition.to(heart1, {alpha = 1, time = 700})
   transition.to(heart2, {alpha = 1, time = 700})
   transition.to(heart3, {alpha = 1, time = 700})
@@ -309,37 +310,16 @@ function RemoveEventListeners()
     incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
 end 
 
-
---Function that restart counters and makes heart visible
-local function Level1( )
+local function hideQuestion()
+  bookOpen.alpha = 0
+  questionText.alpha = 0
   heart1.alpha = 0
   heart2.alpha = 0
-  heart3.alpha = 0
+  heart3.alpha = 0 
   correct = 0
   print(correct)
   wrong = 3
   print(wrong)
-end
-
-local function HideOpenBook()
-  bookOpen.isVisible = false
-end
-
-local function ShowOpenBook()
-  bookOpen.isVisible = true
-  heart1.isVisible = true
-  heart2.isVisible = true
-  heart3.isVisible = true
-  questionText.isVisible = true
-  correctImage.isVisible = true
-  incorrectImage1.isVisible = true
-  incorrectImage2.isVisible = true
-end
-
-local function ShowHearts()
-   heart1.isVisible = true
-    heart2.isVisible = true
-     heart3.isVisible = true
 end
 
 -- -----------------------------------------------------------------------------------
@@ -356,15 +336,15 @@ end
 
 function checkAnswersL1()
   if (wrong == 2 ) then
-    heart1.isVisible = false
+    heart1.alpha = 0
 
 
   elseif (wrong == 1) then
-     heart2.isVisible = false
+     heart2.alpha = 0
 
 
   elseif(wrong == 0) then
-     heart3.isVisible = false
+     heart3.alpha = 0
     composer.gotoScene("Lose_screen", {effect = "fade", time = 500})
     correctImage.isVisible = false
     incorrectImage1.isVisible = false
@@ -375,10 +355,9 @@ function checkAnswersL1()
     correctImage.isVisible = false
     incorrectImage1.isVisible = false
     incorrectImage2.isVisible = false
-    timer.performWithDelay(2000, WinScreenTransition)
+    timer.performWithDelay(0, WinScreenTransition)
     
   end
-
   
 end
 
@@ -516,7 +495,7 @@ function scene:show( event )
       timer.performWithDelay(5600, openBook)
       timer.performWithDelay(4500, moveTV2)
       --timer.performWithDelay(8000, ShowHearts)
-      timer.performWithDelay(7600, RestartLevel1)
+      timer.performWithDelay(5600, RestartLevel1)
       bkgChannel = audio.play(bkgSound)
     end
 end
@@ -532,6 +511,7 @@ function scene:hide( event )
         -- Code here runs when the scene is on screen (but is about to go off screen
         RemoveEventListeners()
         RemoveImageAnswers()
+        hideQuestion()
 
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
