@@ -5,10 +5,7 @@
 -- Description: 
 
 -- Naming scene
-<<<<<<< HEAD
-sceneName = "level2.lua" 
-                                                      
-=======
+
 
 
 local composer = require( "composer" )
@@ -20,6 +17,8 @@ local scene = composer.newScene( sceneName )
 ---------------------------------------------------------------------------------------
 local bkg
 local rabbit
+local scroll
+local instructions
 local counter = 0
 
 -- set the boolean varibales to know if they have already touched an image 
@@ -93,8 +92,16 @@ local piece9PreviousY
 --------------------------------------------
 --LOCAL FUNCTIONS
 -------------------------------------------
+--this functions displays the instructions
+local function displayInstructions()
+	transition.to(instructions, {alpha = 1})
+end
+
+--this function creates the animation (moves the rabbit, scroll and displays the instructions after a period of time)
 local function moveRabbit()
     transition.to(rabbit, {x = 280, y = 400, alpha = 1, time = 1000})
+    transition.to(scroll, {x = 715, y = 400, width = 600, height = 700, alpha = 1, time = 1000})
+    timer.performWithDelay(1000, displayInstructions)
 end
 
 local function changePossition()
@@ -871,6 +878,20 @@ function scene:create( event )
     rabbit.alpha = 0
     sceneGroup:insert(rabbit)
 
+    --create the scroll
+    scroll = display.newImage("Level2/ScrollValeriaV.png")
+    scroll.x = -200
+    scrolly = 400
+    scroll.width = 300
+    scroll.height = 500
+    scroll.alpha = 0
+    sceneGroup:insert(scroll)
+
+    --create the instuctions text
+    instructions = display.newText("       In this Level\n      you must put\nthe puzzle pieces in\n   the correct spot.\n If you complete the\n    puzzle you will\n move on to level 3", 720, 400, native.systemFontBold, 45)
+    instructions:setTextColor(14/255, 102/255, 85/255)
+    instructions.alpha = 0
+    sceneGroup:insert(instructions)
     --------------------------------------------------------------
     --create the faded puzzle pieces
     --------------------------------------------------------------
@@ -1038,7 +1059,7 @@ function scene:create( event )
     piece9.height = 120
     piece9.alpha = 0
     sceneGroup:insert(piece9)
->>>>>>> 0f965dba131e646a0b7b3a99f5d25f628c8336cd
+
 
 
 
