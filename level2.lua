@@ -5,6 +5,10 @@
 -- Description: 
 
 -- Naming scene
+<<<<<<< HEAD
+sceneName = "level2.lua" 
+                                                      
+=======
 
 
 local composer = require( "composer" )
@@ -1034,6 +1038,7 @@ function scene:create( event )
     piece9.height = 120
     piece9.alpha = 0
     sceneGroup:insert(piece9)
+>>>>>>> 0f965dba131e646a0b7b3a99f5d25f628c8336cd
 
 
 
