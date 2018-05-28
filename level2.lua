@@ -889,7 +889,7 @@ function scene:create( event )
     pieceF1.y = 130
     pieceF1.width = 180
     pieceF1.height = 180
-    pieceF1.alpha = 0.8
+    pieceF1.alpha = 0
     sceneGroup:insert(pieceF1)
     
     --second piece
@@ -898,7 +898,7 @@ function scene:create( event )
     pieceF2.y = 130
     pieceF2.width = 180
     pieceF2.height = 180
-    pieceF2.alpha = 0.8
+    pieceF2.alpha = 0
     sceneGroup:insert(pieceF2)
 
     --third piece
@@ -907,7 +907,7 @@ function scene:create( event )
     pieceF3.y = 130
     pieceF3.width = 180
     pieceF3.height = 180
-    pieceF3.alpha = 0.8
+    pieceF3.alpha = 0
     sceneGroup:insert(pieceF3)
 
     --fourth piece
@@ -916,7 +916,7 @@ function scene:create( event )
     pieceF4.y = 310
     pieceF4.width = 180
     pieceF4.height = 180
-    pieceF4.alpha = 0.8
+    pieceF4.alpha = 0
     sceneGroup:insert(pieceF4)
 
     --fifth piece
@@ -925,7 +925,7 @@ function scene:create( event )
     pieceF5.y = 310
     pieceF5.width = 180
     pieceF5.height = 180
-    pieceF5.alpha = 0.8
+    pieceF5.alpha = 0
     sceneGroup:insert(pieceF5)
 
     --sixth piece
@@ -934,7 +934,7 @@ function scene:create( event )
     pieceF6.y = 310
     pieceF6.width = 180
     pieceF6.height = 180
-    pieceF6.alpha = 0.8
+    pieceF6.alpha = 0
     sceneGroup:insert(pieceF6)
 
     --seventh piece
@@ -943,7 +943,7 @@ function scene:create( event )
     pieceF7.y = 490
     pieceF7.width = 180
     pieceF7.height = 180
-    pieceF7.alpha = 0.8
+    pieceF7.alpha = 0
     sceneGroup:insert(pieceF7)
 
     --eighth piece
@@ -952,7 +952,7 @@ function scene:create( event )
     pieceF8.y = 490
     pieceF8.width = 180
     pieceF8.height = 180
-    pieceF8.alpha = 0.8
+    pieceF8.alpha = 0
     sceneGroup:insert(pieceF8)
 
     --nineth piece
@@ -961,7 +961,7 @@ function scene:create( event )
     pieceF9.y = 490
     pieceF9.width = 180
     pieceF9.height = 180
-    pieceF9.alpha = 0.8
+    pieceF9.alpha = 0
     sceneGroup:insert(pieceF9)
 
     --------------------------------------------------------------
@@ -973,6 +973,7 @@ function scene:create( event )
     piece1.y = 90
     piece1.width = 120
     piece1.height = 120
+    piece1.alpha = 0
     sceneGroup:insert(piece1)
 
     --second piece
@@ -981,6 +982,7 @@ function scene:create( event )
     piece2.y = 295
     piece2.width = 120
     piece2.height = 120
+    piece2.alpha = 0
     sceneGroup:insert(piece2)
 
     --third piece
@@ -989,6 +991,7 @@ function scene:create( event )
     piece3.y = 680
     piece3.width = 120
     piece3.height = 120
+    piece3.alpha = 0
     sceneGroup:insert(piece3)
 
     --fourth piece
@@ -997,6 +1000,7 @@ function scene:create( event )
     piece4.y = 485
     piece4.width = 120
     piece4.height = 120
+    piece4.alpha = 0
     sceneGroup:insert(piece4)
 
     --fifth piece
@@ -1005,6 +1009,7 @@ function scene:create( event )
     piece5.y = 295
     piece5.width = 120
     piece5.height = 120
+    piece5.alpha = 0
     sceneGroup:insert(piece5)
 
     --sixth piece
@@ -1013,6 +1018,7 @@ function scene:create( event )
     piece6.y = 680
     piece6.width = 120
     piece6.height = 120
+    piece6.alpha = 0
     sceneGroup:insert(piece6)
 
     --seventh piece
@@ -1021,6 +1027,7 @@ function scene:create( event )
     piece7.y = 90
     piece7.width = 120
     piece7.height = 120
+    piece7.alpha = 0
     sceneGroup:insert(piece7)
 
     --eigth piece
@@ -1029,6 +1036,7 @@ function scene:create( event )
     piece8.y = 680
     piece8.width = 120
     piece8.height = 120
+    piece8.alpha = 0
     sceneGroup:insert(piece8)
 
     --nineth piece
@@ -1037,6 +1045,7 @@ function scene:create( event )
     piece9.y = 485
     piece9.width = 120
     piece9.height = 120
+    piece9.alpha = 0
     sceneGroup:insert(piece9)
 >>>>>>> 0f965dba131e646a0b7b3a99f5d25f628c8336cd
 
@@ -1056,7 +1065,7 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        --moveRabbit()
+        moveRabbit()
         changePossition()
         addEventListener()
  
