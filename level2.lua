@@ -845,6 +845,15 @@ local function addEventListener()
     piece9:addEventListener("touch", movePiece9)
 end
 
+--------------------------------------------------------------------------------------
+--sounds
+-------------------------------------------------------------------------------------
+ 
+  --background sound 
+  bkgSound = audio.loadStream("Sounds/level2.mp3")
+  -- correct sound 
+  correctSound = audio.loadStream("Sounds/correct.mp3")
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
