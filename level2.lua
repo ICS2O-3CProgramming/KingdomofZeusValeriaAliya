@@ -32,6 +32,15 @@ local piece7AlreadyTouched = false
 local piece8AlreadyTouched = false
 local piece9AlreadyTouched = false
 
+--- Background sound 
+local bkgSound
+local bkgChannel
+local bkgStop
+
+--correctSound
+local correctSound
+local correctChannel
+
 --this variable will set randomly the possition of the puzzles
 local changePosit
 
