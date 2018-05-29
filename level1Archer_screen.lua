@@ -49,7 +49,6 @@ local wrong = 3
 --background sound
 local bkgSound
 local bkgChannel
-local bkgStop
 
 --WrongSound
 local wrongSound
@@ -65,7 +64,8 @@ local correctChannel
 --this function is responsible for animating the book
 local function openBook()
   transition.to(bookClosed, {alpha = 0, time = 1000})
-  transition.to(bookOpen, {alpha = 1, time = 1000})
+  transition.to(questionText, {alpha = 1, time = 700})
+  transition.to(bookOpen, {alpha = 1, time = 700})
   transition.to(heart1, {alpha = 1, time = 700})
   transition.to(heart2, {alpha = 1, time = 700})
   transition.to(heart3, {alpha = 1, time = 700})
@@ -170,25 +170,6 @@ local function RemoveImageAnswers()
     display.remove(incorrectImage2)
 end
 
-local function checkAnswers()
-  if (wrong == 2 ) then
-    display.remove(heart1)
-  elseif (wrong == 1) then
-    display.remove(heart2)
-  elseif(wrong == 0) then
-    display.remove(heart3)
-    composer.gotoScene("Lose_screen", {effect = "fade", time = 500})
-    correctImage.isVisible = false
-    incorrectImage1.isVisible = false
-    incorrectImage2.isVisible = false
-  end
-  if(correct == 3) then
-    composer.gotoScene("Win_screen", {effect = "fade", time = 500})
-    correctImage.isVisible = false
-    incorrectImage1.isVisible = false
-    incorrectImage2.isVisible = false
-  end
-end
 
 local function PositionAnswers( )
 
@@ -235,11 +216,14 @@ local function TouchListenerCorrectImage(touch)
                  print("plus"..correct)
                 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswers()
+                checkAnswersL2()
 
-                --hide the question and answers
-               RemoveImageAnswers()
-               RestartLevel1()
+               --hide the question and answers
+                if (correct ~= 3) or (wrong ~= 0) then
+                  RemoveEventListeners()
+                  RemoveImageAnswers()
+                  RestartLevel1()
+                end
         end
     end                
 end 
@@ -266,7 +250,7 @@ local function TouchListenerIncorrectImage1(touch)
                 print("minus"..wrong) 
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswers()  
+                checkAnswersL2()  
 
                 --hide the wrong answer
                 transition.to(incorrectImage1, {alpha = 0, time = 500})
@@ -296,7 +280,7 @@ local function TouchListenerIncorrectImage2(touch)
                 print("minus"..wrong)
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswers()
+                checkAnswersL2()
                 
                 --hide the wrong answer
                 transition.to(incorrectImage2, {alpha = 0, time = 500})
@@ -311,12 +295,7 @@ local function AddEventListeners()
     incorrectImage2:addEventListener("touch", TouchListenerIncorrectImage2)
 end 
 
--- Function that Removes Listeners to each answer box
-local function RemoveEventListeners()
-    correctImage:removeEventListener("touch", TouchListenerCorrectImage)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
-end 
+
 
 -- Function to Restart Level 1
 function RestartLevel1()
@@ -326,15 +305,63 @@ function RestartLevel1()
 end
 
 --Function that restart counters and makes heart visible
-local function Level1( )
+local function hideQuestion()
+  bookOpen.alpha = 0
+  questionText.alpha = 0
   heart1.alpha = 0
   heart2.alpha = 0
-  heart3.alpha = 0
+  heart3.alpha = 0 
   correct = 0
   print(correct)
   wrong = 3
   print(wrong)
 end
+
+-- -----------------------------------------------------------------------------------
+-- GLOBAL FUNCTIONS
+-- -----------------------------------------------------------------------------------
+
+-- Function to Restart Level 1
+function RestartLevel1()
+    bookOpen.isVisible = true
+    DisplayQuestion()
+    PositionAnswers()
+    AddEventListeners()
+end
+
+function checkAnswersL2()
+  if (wrong == 2 ) then
+    heart1.alpha = 0
+
+
+  elseif (wrong == 1) then
+     heart2.alpha = 0
+
+
+  elseif(wrong == 0) then
+     heart3.alpha = 0
+    composer.gotoScene("Lose_screen", {effect = "fade", time = 500})
+    correctImage.isVisible = false
+    incorrectImage1.isVisible = false
+    incorrectImage2.isVisible = false
+  end
+
+  if(correct == 3) then    
+    correctImage.isVisible = false
+    incorrectImage1.isVisible = false
+    incorrectImage2.isVisible = false
+    timer.performWithDelay(0, WinScreenTransition)
+    
+  end
+  
+end
+
+-- Function that Removes Listeners to each answer box
+function RemoveEventListeners()
+    correctImage:removeEventListener("touch", TouchListenerCorrectImage)
+    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
+    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
+end 
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -470,8 +497,7 @@ function scene:show( event )
       timer.performWithDelay(5600, openBook)
       timer.performWithDelay(4500, moveArcher2)
       timer.performWithDelay(5600, RestartLevel1)
-      Level1()
-      bkgChannel = audio.play(bkgSound,{ channel=2})
+      bkgChannel = audio.play(bkgSound)
     end
 end
  
@@ -484,12 +510,12 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen
-
-    elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
         RemoveEventListeners()
         RemoveImageAnswers()
-        bkgStop = audio.stop(2)
+        hideQuestion()
+    elseif ( phase == "did" ) then
+        -- Code here runs immediately after the scene goes entirely off screen
+          bkgStop = audio.stop(bkgChannel)
     end
 end
  

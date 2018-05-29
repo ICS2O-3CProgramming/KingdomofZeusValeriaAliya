@@ -10,7 +10,7 @@ display.setStatusBar(display.HiddenStatusBar)
 --require composer
 local composer = require("composer")
 
-composer.gotoScene("level1TV_screen")
+composer.gotoScene("level2")
 
 
 
