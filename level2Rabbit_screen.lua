@@ -904,7 +904,7 @@ local function movePiece9(touch)
                     piece9.x = pieceF9.x
                     piece9.y = pieceF9.y
 
-                    piece9:removeEventListener("touch", movePiece8)
+                    piece9:removeEventListener("touch", movePiece9)
                     
                     --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
                     puzzleCounter = puzzleCounter + 1
@@ -973,7 +973,7 @@ local function hidePuzzle()
     piece9.height = 120
 
     --set the puzzleCounter to zero
-    puzzlepuzzleCounter = 0
+    puzzleCounter = 0
 end
 -------------------------------------
 --ADD EVENT LISTENERS TO THE OBJECTS
