@@ -19,7 +19,7 @@ local bkg
 local wizard
 local scroll
 local instructions
-local counter = 0
+local puzzleCounter = 0
 local explossion
 --this variable will set randomly the possition of the puzzles
 local changePosit
@@ -446,10 +446,11 @@ local function changePossition()
     piece9PreviousY = piece9.y
 end
 
---this function checks if the counter equal to 9 (all pieces are on place) then move to the next level
+--this function checks if the puzzleCounter equal to 9 (all pieces are on place) then move to the next level
 local function checkPosition()
+    print("puzzzleCounter"..puzzleCounter)
 
-    if (counter == 9) then
+    if (puzzleCounter == 9) then
         composer.gotoScene("Win_screen", {effect = fade, time = 1000})
     end
 
@@ -489,8 +490,8 @@ local function movePiece1(touch)
                     
                     piece1:removeEventListener("touch", movePiece1)
                    
-                   --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                   --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                     
                 --else make piece go back to where it was
@@ -537,8 +538,8 @@ local function movePiece2(touch)
 
                     piece2:removeEventListener("touch", movePiece2)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -584,8 +585,8 @@ local function movePiece3(touch)
 
                     piece3:removeEventListener("touch", movePiece3)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -632,8 +633,8 @@ local function movePiece4(touch)
 
                     piece4:removeEventListener("touch", movePiece4)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -680,8 +681,8 @@ local function movePiece5(touch)
 
                     piece5:removeEventListener("touch", movePiece5)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -728,8 +729,8 @@ local function movePiece6(touch)
 
                     piece6:removeEventListener("touch", movePiece6)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -776,8 +777,8 @@ local function movePiece7(touch)
 
                     piece7:removeEventListener("touch", movePiece7)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -824,8 +825,8 @@ local function movePiece8(touch)
 
                     piece8:removeEventListener("touch", movePiece8)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was
                 else
@@ -873,8 +874,8 @@ local function movePiece9(touch)
 
                     piece9:removeEventListener("touch", movePiece8)
                     
-                    --increase the counter by 1 and check if it's necessary to move to the next scene
-                    counter = counter + 1
+                    --increase the puzzleCounter by 1 and check if it's necessary to move to the next scene
+                    puzzleCounter = puzzleCounter + 1
                     timer.performWithDelay(1000, checkPosition)
                 --else make piece go back to where it was and change the size
                 else
@@ -934,6 +935,10 @@ local function hidePuzzle()
     piece8.height = 120
     piece9.width = 120
     piece9.height = 120
+
+    --set the puzzleCounter to zero 
+    puzzleCounter = 0
+    print("puzzleCounter"..puzzleCounter)
 end
 -------------------------------------
 --ADD EVENT LISTENERS TO THE OBJECTS
@@ -948,6 +953,21 @@ local function addEventListener()
     piece7:addEventListener("touch", movePiece7)
     piece8:addEventListener("touch", movePiece8)
     piece9:addEventListener("touch", movePiece9)
+end
+
+-------------------------------------
+--REMOVE EVENT LISTENERS TO THE OBJECTS
+--------------------------------------
+local function removeEventListener()
+    piece1:removeEventListener("touch", movePiece1)
+    piece2:removeEventListener("touch", movePiece2)
+    piece3:removeEventListener("touch", movePiece3)
+    piece4:removeEventListener("touch", movePiece4)
+    piece5:removeEventListener("touch", movePiece5)
+    piece6:removeEventListener("touch", movePiece6)
+    piece7:removeEventListener("touch", movePiece7)
+    piece8:removeEventListener("touch", movePiece8)
+    piece9:removeEventListener("touch", movePiece9)
 end
 
 -- -----------------------------------------------------------------------------------
@@ -1211,7 +1231,8 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
         hidePuzzle()
-        audio.pause(3)
+        audio.stop(3)
+        removeEventListener()
  
     end
 end

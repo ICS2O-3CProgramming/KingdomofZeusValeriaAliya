@@ -38,12 +38,12 @@ local scene = composer.newScene(sceneName)
  --these functions move to the level one (different characters)
  local function LevelTvTransition()
     composer.gotoScene("level1TV_screen", {effect = "fade", time = 300})
-    audio.pause(1)
+    audio.stop(1)
  end
 
  local function LevelArcherTransition()
     composer.gotoScene("level1Archer_screen", {effect = "fade", time = 300})
-    audio.pause(1)
+    audio.stop(1)
  end
 ----------------------------------------------------------------------------------
 --GLOBAL SECENE FUNCTIONS

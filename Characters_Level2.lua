@@ -38,12 +38,12 @@ local scene = composer.newScene(sceneName)
  --these functions move to the level one (different characters)
  local function LevelRabbitTransition()
     composer.gotoScene("level2Rabbit_screen", {effect = "fade", time = 300})
-    audio.pause(1)
+    audio.stop(1)
  end
 
  local function LevelWizzardTransition()
     composer.gotoScene("level2Wizzard_screen", {effect = "fade", time = 300})
-    audio.pause(1)
+    audio.stop(1)
  end
 ----------------------------------------------------------------------------------
 --GLOBAL SECENE FUNCTIONS

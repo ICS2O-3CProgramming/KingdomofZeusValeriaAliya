@@ -518,9 +518,10 @@ function scene:hide( event )
         hideQuestion()
 
     elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
-        
+        -- Code here runs immediately after the scene goes entirely off screen    
         bkgStop = audio.stop(bkgChannel)
+        audio.play(1)
+
     end
 end
  
