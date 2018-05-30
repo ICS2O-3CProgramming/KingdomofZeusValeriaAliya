@@ -26,17 +26,41 @@ local scene = composer.newScene(sceneName)
  local bkgChannel
  local bkgStop
  local pannel
+
+  ------------------------
+  --Musical Notes
+  ------------------------
+  local note1
+  local note2
+  local note3
+  local note4
  -------------------------------------------------------------------------------------
  --LOCAL FUNCTIONS
  -----------------------------------------------------------------------------
  local function menuTransition()
     composer.gotoScene("main_menu", {effect = "fade", time = 300})
  end
+
+ --this function animates te notes
+ local function animateNotes()
+   transition.to(note1, {alpha = 1, x = 900, y = 450, time = 500, rotation = 90})
+   transition.to(note1, {x = 950, y = 500, time = 1000, roation = 120})
+   transition.to(note1, {x = 950, y = 600, time = 1000, roation = 120})
+ end
 -- create()
 function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
+   ----------------------------------------
+   --MUSICAL NOTES
+   ---------------------------------------
+   note1 = display.newImage("WinImages/note1.png")
+   note1.x = 800
+   note1.y = 400
+   note1.alpha = 1
+   -- --Associating display objects with this scene
+   --sceneGroup:insert(note1)
 
     --create the background image
    bkg = display.newImageRect("MenuImages/MainMenuValeriaV.png", 0, 0, 0, 0)
@@ -93,6 +117,7 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
         bkgChannel = audio.play(bkgSound)
+        animateNotes()
  
     end
 end
