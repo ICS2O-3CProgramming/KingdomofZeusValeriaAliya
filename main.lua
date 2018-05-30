@@ -13,6 +13,3 @@ local composer = require("composer")
 composer.gotoScene("Win_screen")
 
 
-
-
-
