@@ -10,7 +10,7 @@ display.setStatusBar(display.HiddenStatusBar)
 --require composer
 local composer = require("composer")
 
-composer.gotoScene("level2")
+composer.gotoScene("level2Wizzard_screen")
 
 
 

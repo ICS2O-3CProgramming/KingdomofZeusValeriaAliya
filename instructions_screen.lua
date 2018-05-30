@@ -18,8 +18,6 @@ local scene = composer.newScene(sceneName)
  ----------------------------------------------------------------------------
  local bkg
  local backButton
- local bkgSound
- local bkgChannel
  -------------------------------------------------------------------------------------
  --LOCAL FUNCTIONS
  -----------------------------------------------------------------------------
@@ -44,9 +42,6 @@ function scene:create( event )
    bkg.height = display.contentHeight
    -- --Associating display objects with this scene
    sceneGroup:insert(bkg)
-
-   --create the sound
-    bkgSound = audio.loadStream("Sounds/mainS.mp3")
 
    --create the back button
    backButton = widget.newButton(
@@ -80,7 +75,6 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-         bkgChannel = audio.play(bkgSound)
     end
 end
  
@@ -96,8 +90,6 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-        audio.stop(bkgChannel)
- 
     end
 end
  

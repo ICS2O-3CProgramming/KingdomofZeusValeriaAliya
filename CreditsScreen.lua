@@ -13,23 +13,23 @@ sceneName = "CreditsScreen"
 --creating scene object 
 local scene = composer.newScene(sceneName)
   
--- -----------------------------------------------------------------------------------
--- Scene event functions
--- -----------------------------------------------------------------------------------
- 
+
  --------------------------------------------------------------------------------
  --LOCAL VARIABLES
  ----------------------------------------------------------------------------
  local bkg
  local backButton
- local bkgSound
- local bkgChannel
  -------------------------------------------------------------------------------------
  --LOCAL FUNCTIONS
  -----------------------------------------------------------------------------
  local function menuTransition()
     composer.gotoScene("main_menu", {effect = "fade", time = 300})
  end
+
+ -- -----------------------------------------------------------------------------------
+-- Global scene functions
+-- -----------------------------------------------------------------------------------
+ 
 -- create()
 function scene:create( event )
  
@@ -44,9 +44,6 @@ function scene:create( event )
    bkg.height = display.contentHeight
    -- --Associating display objects with this scene
    sceneGroup:insert(bkg)
-    
-   --create the sound
-    bkgSound = audio.loadStream("Sounds/mainS.mp3")
 
    --create the back button
    backButton = widget.newButton(
@@ -63,11 +60,7 @@ function scene:create( event )
      -- when the button is pressed call the function go to main scene
      onRelease = menuTransition
       })
-     sceneGroup:insert(backButton)
-
-
-
-   
+     sceneGroup:insert(backButton)  
 end
  
  
@@ -82,8 +75,6 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        bkgChannel = audio.play(bkgSound)
- 
     end
 end
  
@@ -99,8 +90,6 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-        audio.stop(bkgChannel)
- 
     end
 end
  

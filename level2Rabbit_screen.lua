@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 -- level2.lua
--- Created by: Valeria Veverita
+-- Created by: Valeria & Aliya
 -- Date: May 10th, 2018
 -- Description: 
 
@@ -20,6 +20,7 @@ local rabbit
 local scroll
 local instructions
 local counter = 0
+local explossion
 
 -- set the boolean varibales to know if they have already touched an image 
 local piece1AlreadyTouched = false 
@@ -32,6 +33,9 @@ local piece7AlreadyTouched = false
 local piece8AlreadyTouched = false
 local piece9AlreadyTouched = false
 
+-----------------------------------------
+--SOUND
+-----------------------------------------
 --- Background sound 
 local bkgSound
 local bkgChannel
@@ -40,6 +44,10 @@ local bkgStop
 --correctSound
 local correctSound
 local correctChannel
+
+--magic sound
+local magicSound
+local magicChannel
 
 --this variable will set randomly the possition of the puzzles
 local changePosit
@@ -111,6 +119,43 @@ local function moveRabbit()
     transition.to(rabbit, {x = 280, y = 400, alpha = 1, time = 1000})
     transition.to(scroll, {x = 715, y = 400, width = 600, height = 700, alpha = 1, time = 1000})
     timer.performWithDelay(1000, displayInstructions)
+end
+
+--this function hides the instructions and displays the explossion image
+local function displayExplossion()
+    magicChannel = audio.play(magicSound, {channel = 5, loop = -1})
+    transition.to(explossion, {alpha = 1, width = 1000, height = 800, time = 500})
+    transition.to(rabbit, {alpha = 0})
+    transition.to(scroll, {alpha = 0})
+    transition.to(instructions, {alpha = 0})
+end
+
+--this function hides the explossion and displays the puzzle
+local function displayPuzzle()
+    --hide the explossion
+    transition.to(explossion, {alpha = 0})
+
+    --display the original image
+    pieceF1.alpha = 0.8
+    pieceF2.alpha = 0.8
+    pieceF3.alpha = 0.8
+    pieceF4.alpha = 0.8
+    pieceF5.alpha = 0.8
+    pieceF6.alpha = 0.8
+    pieceF7.alpha = 0.8
+    pieceF8.alpha = 0.8
+    pieceF9.alpha = 0.8
+
+    --display the pieces separate
+    piece1.alpha = 1
+    piece2.alpha = 1
+    piece3.alpha = 1
+    piece4.alpha = 1
+    piece5.alpha = 1
+    piece6.alpha = 1
+    piece7.alpha = 1
+    piece8.alpha = 1
+    piece9.alpha = 1
 end
 
 local function changePossition()
@@ -448,8 +493,11 @@ local function movePiece1(touch)
                    
                    --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
                     
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece1.x = piece1PreviousX
@@ -496,7 +544,11 @@ local function movePiece2(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece2.x = piece2PreviousX
@@ -543,7 +595,11 @@ local function movePiece3(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece3.x = piece3PreviousX
@@ -591,7 +647,11 @@ local function movePiece4(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece4.x = piece4PreviousX
@@ -639,7 +699,11 @@ local function movePiece5(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece5.x = piece5PreviousX
@@ -687,7 +751,11 @@ local function movePiece6(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece6.x = piece6PreviousX
@@ -735,7 +803,11 @@ local function movePiece7(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece7.x = piece7PreviousX
@@ -783,7 +855,11 @@ local function movePiece8(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was
                 else
                     piece8.x = piece8PreviousX
@@ -832,7 +908,11 @@ local function movePiece9(touch)
                     
                     --increase the counter by 1 and check if it's necessary to move to the next scene
                     counter = counter + 1
-                    timer.performWithDelay(2000, checkPosition)
+                    timer.performWithDelay(1000, checkPosition)
+
+                    --play the correct sound
+                    correctChannel = audio.play(correctSound, {channel = 6, loop = -1})
+
                 --else make piece go back to where it was and change the size
                 else
                     piece9.x = piece9PreviousX
@@ -846,6 +926,52 @@ local function movePiece9(touch)
             end
         end                
 end -- end of movePiece9(touch)
+
+
+--this function hides the puzzle after the scene dissapears
+local function hidePuzzle()
+  --hide the original image
+    pieceF1.alpha = 0
+    pieceF2.alpha = 0
+    pieceF3.alpha = 0
+    pieceF4.alpha = 0
+    pieceF5.alpha = 0
+    pieceF6.alpha = 0
+    pieceF7.alpha = 0
+    pieceF8.alpha = 0
+    pieceF9.alpha = 0
+
+    --hide the separate pieces
+    piece1.alpha = 0
+    piece2.alpha = 0
+    piece3.alpha = 0
+    piece4.alpha = 0
+    piece5.alpha = 0
+    piece6.alpha = 0
+    piece7.alpha = 0
+    piece8.alpha = 0
+    piece9.alpha = 0
+
+    --change the size of the pieces
+    piece1.width = 120
+    piece1.height = 120
+    piece2.width = 120
+    piece2.height = 120
+    piece3.width = 120
+    piece3.height = 120
+    piece4.width = 120
+    piece4.height = 120
+    piece5.width = 120
+    piece5.height = 120
+    piece6.width = 120
+    piece6.height = 120
+    piece7.width = 120
+    piece7.height = 120
+    piece8.width = 120
+    piece8.height = 120
+    piece9.width = 120
+    piece9.height = 120
+end
 -------------------------------------
 --ADD EVENT LISTENERS TO THE OBJECTS
 --------------------------------------
@@ -860,15 +986,6 @@ local function addEventListener()
     piece8:addEventListener("touch", movePiece8)
     piece9:addEventListener("touch", movePiece9)
 end
-
---------------------------------------------------------------------------------------
---sounds
--------------------------------------------------------------------------------------
- 
-  --background sound 
-  bkgSound = audio.loadStream("Sounds/level2.mp3")
-  -- correct sound 
-  correctSound = audio.loadStream("Sounds/correct.mp3")
 
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
@@ -899,7 +1016,7 @@ function scene:create( event )
     --create the scroll
     scroll = display.newImage("Level2/ScrollValeriaV.png")
     scroll.x = -200
-    scrolly = 400
+    scroll.y = 400
     scroll.width = 300
     scroll.height = 500
     scroll.alpha = 0
@@ -910,6 +1027,13 @@ function scene:create( event )
     instructions:setTextColor(14/255, 102/255, 85/255)
     instructions.alpha = 0
     sceneGroup:insert(instructions)
+
+    --create the explossion
+    explossion = display.newImage("Level2/ExplosionValeriaV.png")
+    explossion.x = display.contentWidth/2
+    explossion.y = display.contentHeight/2
+    explossion.alpha = 0
+    sceneGroup:insert(explossion)
     --------------------------------------------------------------
     --create the faded puzzle pieces
     --------------------------------------------------------------
@@ -1078,8 +1202,16 @@ function scene:create( event )
     piece9.alpha = 0
     sceneGroup:insert(piece9)
 
-
-
+ -------------------------------------------------------------------------------------
+ --sounds
+ -------------------------------------------------------------------------------------
+ 
+  --background sound 
+  bkgSound = audio.loadStream("Sounds/level2.mp3")
+  -- correct sound 
+  correctSound = audio.loadStream("Sounds/correct.mp3")
+  --magic sound
+  magicSound = audio.loadStream("Sounds/magic.mp3")
 
 end
  
@@ -1098,7 +1230,9 @@ function scene:show( event )
         moveRabbit()
         changePossition()
         addEventListener()
- 
+        timer.performWithDelay(3000, displayExplossion)
+        timer.performWithDelay(3500, displayPuzzle)
+        bkgChannel = audio.play(bkgSound, { channel=4, loops=-1 })
     end
 end
  
@@ -1114,6 +1248,8 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
+        hidePuzzle()
+        audio.pause(4)
  
     end
 end

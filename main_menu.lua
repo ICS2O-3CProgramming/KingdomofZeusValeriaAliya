@@ -24,10 +24,18 @@ local creditsButton
 local instructionsButton
 local soundButtonOn
 local soundButtonOff
-local bkgSound
-local bkgChannel
 local title
 local titleLight
+
+--------------------------
+--SOUND
+--------------------------
+local bkgSound
+local bkgChannel
+------------------------------------------------------------------------------------
+--GLOBAL VARIABLES
+------------------------------------------------------------------------------------
+selectCounter = 0
 
 -------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -65,17 +73,18 @@ local function InstructionsTransition()
 end
 
 ------------------------------------------------------------------------------------------
-
+--GLOBAL FUNCTION
+------------------------------------------------------------------------------------------------
 --creating sound button function
-local function soundOn()
+function soundOn()
    bkgChannel = audio.play(bkgSound)
    soundButtonOff.isVisible = false
    soundButtonOn.isVisible = true
 end
 
 --creating mute function
-local function soundOff()
-  audio.stop(bkgChannel)
+function soundOff()
+  audio.stop(1)
   soundButtonOn.isVisible = false
   soundButtonOff.isVisible = true
 end
@@ -267,7 +276,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-        audio.stop(bkgChannel)
+        --audio.stop(bkgChannel)
     end
 end
  

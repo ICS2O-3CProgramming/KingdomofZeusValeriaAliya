@@ -81,24 +81,6 @@ function scene:create( event )
    --create the sound
     bkgSound = audio.loadStream("Sounds/explosion.mp3")
    
-   --create explosionexplosion
-   explosion = display.newImage("LoseImages/ExplosionValeriaV.png")
-   explosion.x = display.contentWidth/2
-   explosion.y = display.contentHeight/2
-   explosion.width = 750
-   explosion.height = 750
-   explosion.alpha = 0
-   -- --Associating display objects with this scene
-   sceneGroup:insert(explosion)
-
-   --create the text
-   loseText = display.newImage("LoseImages/youloseValeriaV.png")
-   loseText.x = display.contentWidth/2
-   loseText.y = display.contentHeight/2
-   loseText.alpha = 0
-   -- --Associating display objects with this scene
-   sceneGroup:insert(loseText)
-
    -----------------------------------------
    --CREATE THE FIRE
    -----------------------------------------
@@ -170,6 +152,24 @@ function scene:create( event )
    fire7.alpha = 0
    -- --Associating display objects with this scene
    sceneGroup:insert(fire7)
+   
+   --create explosionexplosion
+   explosion = display.newImage("LoseImages/ExplosionValeriaV.png")
+   explosion.x = display.contentWidth/2
+   explosion.y = display.contentHeight/2
+   explosion.width = 750
+   explosion.height = 750
+   explosion.alpha = 0
+   -- --Associating display objects with this scene
+   sceneGroup:insert(explosion)
+
+   --create the text
+   loseText = display.newImage("LoseImages/youloseValeriaV.png")
+   loseText.x = display.contentWidth/2
+   loseText.y = display.contentHeight/2
+   loseText.alpha = 0
+   -- --Associating display objects with this scene
+   sceneGroup:insert(loseText)
 
    --create the back button
    backButton = widget.newButton(

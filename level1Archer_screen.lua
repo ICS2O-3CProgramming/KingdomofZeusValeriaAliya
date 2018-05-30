@@ -20,7 +20,7 @@ local scene = composer.newScene(sceneName)
 local bkg
 local bookClosed
 local bookOpen
-local archer
+local walkingArcher
 local pannel
 local instructions
 
@@ -49,6 +49,7 @@ local wrong = 3
 --background sound
 local bkgSound
 local bkgChannel
+local bkgStop
 
 --WrongSound
 local wrongSound
@@ -71,15 +72,15 @@ local function openBook()
   transition.to(heart3, {alpha = 1, time = 700})
 end
 
---this function moves the TV
+--this function moves the Archer
 local function moveArcher()
-  transition.to(archer, { x = display.contentWidth/3*2, y = display.contentHeight/3*2})
+  transition.to(walkingArcher, { x = display.contentWidth/3*2, y = display.contentHeight/3*2})
   transition.to(pannel, {alpha = 1, time = 500})
   transition.to(instructions, {alpha = 1, time = 500})
 end
 
 local function moveArcher2()
-  transition.to(archer, { x = display.contentWidth/3*2.6, y = display.contentHeight/3*2.8, time = 500})
+  transition.to(walkingArcher, { x = display.contentWidth/3*2.6, y = display.contentHeight/3*2.8, time = 500})
   transition.to(pannel, {alpha = 0, time = 800})
   transition.to(instructions, {alpha = 0, time = 800})
   transition.to(bookClosed, {alpha = 1, time = 1000})
@@ -170,6 +171,11 @@ local function RemoveImageAnswers()
     display.remove(incorrectImage2)
 end
 
+local function WinScreenTransition()
+    composer.gotoScene("Select_screen", {effect = "fade", time = 500})
+end
+
+
 
 local function PositionAnswers( )
 
@@ -180,6 +186,7 @@ local function PositionAnswers( )
         correctImage.x = display.contentWidth/4
         incorrectImage1.x = display.contentWidth/2
         incorrectImage2.x = display.contentWidth/3*2.3
+
     elseif (randomAnswerPosition == 2) then
         correctImage.x = display.contentWidth/2
         incorrectImage1.x = display.contentWidth/3*2.3
@@ -204,8 +211,7 @@ local function TouchListenerCorrectImage(touch)
 
         -- this occurs when they release the mouse
         elseif (touch.phase == "ended") then
-
-            --play the correct sound
+            --play the wrong sound
             correctChannel = audio.play(correctSound)
 
             -- set the boolean that the answer box has not been touched yet
@@ -216,9 +222,9 @@ local function TouchListenerCorrectImage(touch)
                  print("plus"..correct)
                 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersL2()
+                checkAnswersL1()
 
-               --hide the question and answers
+                --hide the question and answers
                 if (correct ~= 3) or (wrong ~= 0) then
                   RemoveEventListeners()
                   RemoveImageAnswers()
@@ -240,9 +246,10 @@ local function TouchListenerIncorrectImage1(touch)
 
         -- this occurs when they release the mouse
         elseif (touch.phase == "ended") then
-            
-            --play the wrong sound
+
+           --play the wrong sound
             wrongChannel = audio.play(wrongSound)
+
             -- set the boolean that the answer box has not been touched yet
               incorrectImage1AlreadyTouched = false
                 -- give the user a point
@@ -250,7 +257,7 @@ local function TouchListenerIncorrectImage1(touch)
                 print("minus"..wrong) 
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersL2()  
+                checkAnswersL1()  
 
                 --hide the wrong answer
                 transition.to(incorrectImage1, {alpha = 0, time = 500})
@@ -270,9 +277,10 @@ local function TouchListenerIncorrectImage2(touch)
 
         -- this occurs when they release the mouse
         elseif (touch.phase == "ended") then
-            
+
             --play the wrong sound
             wrongChannel = audio.play(wrongSound)
+
             -- set the boolean that the answer box has not been touched yet
               incorrectImage2AlreadyTouched = false
                 -- give the user a point
@@ -280,7 +288,7 @@ local function TouchListenerIncorrectImage2(touch)
                 print("minus"..wrong)
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersL2()
+                checkAnswersL1()
                 
                 --hide the wrong answer
                 transition.to(incorrectImage2, {alpha = 0, time = 500})
@@ -295,16 +303,13 @@ local function AddEventListeners()
     incorrectImage2:addEventListener("touch", TouchListenerIncorrectImage2)
 end 
 
+-- Function that Removes Listeners to each answer box
+function RemoveEventListeners()
+    correctImage:removeEventListener("touch", TouchListenerCorrectImage)
+    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
+    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
+end 
 
-
--- Function to Restart Level 1
-function RestartLevel1()
-    DisplayQuestion()
-    PositionAnswers()
-    AddEventListeners()
-end
-
---Function that restart counters and makes heart visible
 local function hideQuestion()
   bookOpen.alpha = 0
   questionText.alpha = 0
@@ -329,7 +334,7 @@ function RestartLevel1()
     AddEventListeners()
 end
 
-function checkAnswersL2()
+function checkAnswersL1()
   if (wrong == 2 ) then
     heart1.alpha = 0
 
@@ -351,19 +356,15 @@ function checkAnswersL2()
     incorrectImage1.isVisible = false
     incorrectImage2.isVisible = false
     timer.performWithDelay(0, WinScreenTransition)
+    selectCounter = 0 + 1
+    print ("counter"..selectCounter)
     
   end
   
 end
 
--- Function that Removes Listeners to each answer box
-function RemoveEventListeners()
-    correctImage:removeEventListener("touch", TouchListenerCorrectImage)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
-end 
 -- -----------------------------------------------------------------------------------
--- Scene event functions
+-- GLOBAL SCENE FUNCTIONS
 -- -----------------------------------------------------------------------------------
  
 -- create()
@@ -371,6 +372,7 @@ function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
+
   -----------------------
   --Sounds
   -------------------------
@@ -381,9 +383,6 @@ function scene:create( event )
   --correct
   correctSound = audio.loadStream("Sounds/correct.mp3")
 
-  ---------------------
-  --IMAGES
-  -----------------------
   --create the background image
   bkg = display.newImageRect("Level1Images/Level1ScreenValeriaV.png", 0, 0, 0, 0)
   bkg.x = 510
@@ -430,14 +429,14 @@ function scene:create( event )
   --Associating display objects with this scene
   sceneGroup:insert(instructions)
 
- --create the archer
-  archer = display.newImage("Level1Images/ArcherValeriaV@2x.png")
-  archer.width = 500
-  archer.height = 650
-  archer.x = -300
-  archer.y = display.contentHeight/2
+ --create the walkingArcher
+  walkingArcher = display.newImage("Level1Images/ArcherValeriaV@2x.png")
+  walkingArcher.width = 500
+  walkingArcher.height = 600
+  walkingArcher.x = -300
+  walkingArcher.y = display.contentHeight/2
   --Associating display objects with this scene
-  sceneGroup:insert(archer)
+  sceneGroup:insert(walkingArcher)
 
   --the text that displays the questions
   questionText = display.newText( "" , 1, 1, native.systemFontBold, 50)
@@ -490,12 +489,14 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
- 
+        --bookOpen.isVisible = false
+
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
       moveArcher()
       timer.performWithDelay(5600, openBook)
       timer.performWithDelay(4500, moveArcher2)
+      --timer.performWithDelay(8000, ShowHearts)
       timer.performWithDelay(5600, RestartLevel1)
       bkgChannel = audio.play(bkgSound)
     end
@@ -513,9 +514,11 @@ function scene:hide( event )
         RemoveEventListeners()
         RemoveImageAnswers()
         hideQuestion()
+
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-          bkgStop = audio.stop(bkgChannel)
+        audio.play(1)
+        bkgStop = audio.stop(bkgChannel)
     end
 end
  

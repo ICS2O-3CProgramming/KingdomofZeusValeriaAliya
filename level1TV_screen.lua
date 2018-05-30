@@ -171,8 +171,8 @@ local function RemoveImageAnswers()
     display.remove(incorrectImage2)
 end
 
-local function WinScreenTransition()
-    composer.gotoScene("Win_screen", {effect = "fade", time = 500})
+local function SelectScreenTransition()
+    composer.gotoScene("Select_screen", {effect = "fade", time = 500})
 end
 
 
@@ -222,13 +222,13 @@ local function TouchListenerCorrectImage(touch)
                  print("plus"..correct)
                 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersL1()
+                checkAnswersTV()
 
                 --hide the question and answers
                 if (correct ~= 3) or (wrong ~= 0) then
-                  RemoveEventListeners()
+                  RemoveEventListenersTV()
                   RemoveImageAnswers()
-                  RestartLevel1()
+                  RestartTV()
                 end
         end
     end                
@@ -257,7 +257,7 @@ local function TouchListenerIncorrectImage1(touch)
                 print("minus"..wrong) 
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersL1()  
+                checkAnswersTV()  
 
                 --hide the wrong answer
                 transition.to(incorrectImage1, {alpha = 0, time = 500})
@@ -288,7 +288,7 @@ local function TouchListenerIncorrectImage2(touch)
                 print("minus"..wrong)
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersL1()
+                checkAnswersTV()
                 
                 --hide the wrong answer
                 transition.to(incorrectImage2, {alpha = 0, time = 500})
@@ -304,7 +304,7 @@ local function AddEventListeners()
 end 
 
 -- Function that Removes Listeners to each answer box
-function RemoveEventListeners()
+function RemoveEventListenersTV()
     correctImage:removeEventListener("touch", TouchListenerCorrectImage)
     incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
     incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
@@ -327,14 +327,14 @@ end
 -- -----------------------------------------------------------------------------------
 
 -- Function to Restart Level 1
-function RestartLevel1()
+function RestartTV()
     bookOpen.isVisible = true
     DisplayQuestion()
     PositionAnswers()
     AddEventListeners()
 end
 
-function checkAnswersL1()
+function checkAnswersTV()
   if (wrong == 2 ) then
     heart1.alpha = 0
 
@@ -355,11 +355,15 @@ function checkAnswersL1()
     correctImage.isVisible = false
     incorrectImage1.isVisible = false
     incorrectImage2.isVisible = false
-    timer.performWithDelay(0, WinScreenTransition)
+    timer.performWithDelay(0, SelectScreenTransition)
+    selectCounter = 0 + 1
+    print ("counter"..selectCounter)
     
   end
   
 end
+
+
 
 -- -----------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -495,7 +499,7 @@ function scene:show( event )
       timer.performWithDelay(5600, openBook)
       timer.performWithDelay(4500, moveTV2)
       --timer.performWithDelay(8000, ShowHearts)
-      timer.performWithDelay(5600, RestartLevel1)
+      timer.performWithDelay(5600, RestartTV)
       bkgChannel = audio.play(bkgSound)
     end
 end
@@ -509,7 +513,7 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen
-        RemoveEventListeners()
+        RemoveEventListenersTV()
         RemoveImageAnswers()
         hideQuestion()
 
