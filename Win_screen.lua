@@ -97,10 +97,10 @@ local scene = composer.newScene(sceneName)
    transition.to(note2, {x = 1200, y = 410, alpha = 1, rotation = 40, time = 1000})
    transition.to(note3, {x = 1200, y = 210, alpha = 1, time = 1000, rotation = -45})
    transition.to(note4, {x = 1200, y = 60, alpha = 1, time = 1000, rotation = -30})
-   transition.to(note5, {x = -20, y = 630, rotation = -50,time = 1000})
-   transition.to(note6, {x = -20, y = 410, alpha = 1, rotation = -40, time = 1000})
-   transition.to(note7, {x = -20, y = 210, alpha = 1, time = 1000, rotation = 45})
-   transition.to(note8, {x = -20, y = 60, alpha = 1, time = 1000, rotation = 30})
+   transition.to(note5, {x = -40, y = 630, rotation = -50,time = 1000})
+   transition.to(note6, {x = -40, y = 410, alpha = 1, rotation = -40, time = 1000})
+   transition.to(note7, {x = -40, y = 210, alpha = 1, time = 1000, rotation = 45})
+   transition.to(note8, {x = -40, y = 60, alpha = 1, time = 1000, rotation = 30})
  end
 
  local function animateNotes()
@@ -121,12 +121,6 @@ function scene:create( event )
    ----------------------------------------
    --MUSICAL NOTES
    ---------------------------------------
-   note1 = display.newImage("WinImages/note1.png")
-   note1.x = 800
-   note1.y = 400
-   note1.alpha = 1
-   -- --Associating display objects with this scene
-   --sceneGroup:insert(note1)
 
     --create the background image
    bkg = display.newImageRect("MenuImages/MainMenuValeriaV.png", 0, 0, 0, 0)
