@@ -207,14 +207,14 @@ function scene:create( event )
       drawer6 = widget.newButton(
          {
              --set its possition on the screen 
-              x = 713,
+              x = 513,
               y = 475,
 
                --Insert the images here
                defaultFile = "Separate/Drawer3ValeriaV.png",
 
               --set the size of the image
-               width = 215,
+               width = 210,
                height = 222,
 
                -- When the button is released, call the LevelSelect screen transition function
