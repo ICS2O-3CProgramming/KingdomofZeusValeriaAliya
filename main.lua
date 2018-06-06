@@ -10,6 +10,6 @@ display.setStatusBar(display.HiddenStatusBar)
 --require composer
 local composer = require("composer")
 
-composer.gotoScene("Win_screen")
+composer.gotoScene("level3Zeus_screen")
 
 
