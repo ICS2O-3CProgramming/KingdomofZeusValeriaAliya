@@ -44,6 +44,9 @@ totalSeconds1 = 10
 secondsLeft1 = 10
 minutesLeft1 = 1
 
+timerStarted = false
+
+
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -122,7 +125,8 @@ end
   --this function stops the timer and hides the timer text
   function StopTimer(event)
     timer.cancel(countDownTimer)
-    clockText.isVisble = false
+    timerStarted = false
+    clockText.isVisible = false
   end
  
   --this function updates the time
@@ -144,7 +148,8 @@ end
       --composer.gotoScene("Lose_screen", {effect = "fade", time = 1000}) 
       --StopTimer()     
       timer.cancel(countDownTimer)
-      clockText.isVisble = false
+      timerStarted = false
+      clockText.isVisible = false
     end
 
   end
@@ -152,6 +157,7 @@ end
   function StartTimer()
     -- create a countdown timer that loops indefinetly
     countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
+    timerStarted = true
   end
 
 -- -----------------------------------------------------------------------------------
@@ -368,6 +374,8 @@ function scene:create( event )
        clockText.y = 50
        clockText:setTextColor(255/255, 195/255, 0/255)
        sceneGroup:insert(clockText)
+       
+    
  -------------------------------------------------------------------------------------
  --sounds
  -------------------------------------------------------------------------------------
@@ -386,8 +394,11 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        UpdateTime()
-        StartTimer()
+        print (timerStarted)
+        if (timerStarted == false) then
+            StartTimer()
+            UpdateTime()
+        end
        
     end
 end
@@ -403,7 +414,7 @@ function scene:hide( event )
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
+        -- Code here runs immediately after the scene goes entirely off screen      
     end
 end
  
