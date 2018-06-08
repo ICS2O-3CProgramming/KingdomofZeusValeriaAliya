@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------------
--- level2.lua
+-- level3.lua
 -- Created by: Valeria & Aliya
 -- Date: May 10th, 2018
 -- Description: 
@@ -20,18 +20,29 @@ local scene = composer.newScene( sceneName )
 ---------------------------------------------------------------------------------------
 local bkg
 
-local drawer1
-local drawer2
-local drawer3
-local drawer4
-local drawer5
-local drawer6
+local cupboard1
+local cupboard2
+local cupboard3
+local cupboard4
+local cupboard5
+local drawer
 local fridge
 local oven
 local microwave
 
--- set the boolean varibales to know if they have already touched an image 
+--TIMER VARIABLES
+local clockText
 
+---------------------------------------------------------------------------------------
+--GLOBAL VARIABLES
+---------------------------------------------------------------------------------------
+levelCounter = 0
+
+--TIMER VARIABLES
+--local countDownTimer
+totalSeconds1 = 10
+secondsLeft1 = 10
+minutesLeft1 = 1
 
 -----------------------------------------
 --SOUND
@@ -47,38 +58,102 @@ local microwave
 
 --this variable will set randomly the possition of the puzzles
 
-
---------------------------------------
---PUZZLE FADED
---------------------------------------
-
-
----------------------------------------
---PUZZLE PIECES
----------------------------------------
-
-
------------------------------------------
---PUZZLE PIECES (POSITION)
------------------------------------------
----------
---X-VALUE
----------
-
----------
---Y-VALUE
----------
-
-
 --------------------------------------------
 --LOCAL FUNCTIONS
 -------------------------------------------
 
---this function transition to the drawer screen
--- Creating Transition Function to Credits Page
-local function CreditsTransition( )       
-    composer.gotoScene( "CreditsScreen", {effect = "fade", time = 0}) 
+--this function transition to the first cupboard screen
+local function Cupboard1Transition( )  
+    levelCounter = 1     
+    composer.gotoScene( "cupboard1_screen", {effect = "fade", time = 0}) 
 end 
+
+--this function transition to the second cupboard screen
+local function Cupboard2Transition( )  
+    levelCounter = 1     
+    composer.gotoScene( "cupboard2_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the third cupboard screen
+local function Cupboard3Transition( )  
+    levelCounter = 1     
+    composer.gotoScene( "cupboard3_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the fourth cupboard screen
+local function Cupboard4Transition( )  
+    levelCounter = 1     
+    composer.gotoScene( "cupboard4_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the fifth cupboard screen
+local function Cupboard5Transition( )  
+    levelCounter = 1     
+    composer.gotoScene( "cupboard5_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the drawers screen
+local function DrawersTransition( )  
+    levelCounter = 1     
+    composer.gotoScene( "drawers_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the fridge screen
+local function FridgeTransition( )  
+    levelCounter = 1     
+    composer.gotoScene( "fridge_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the oven screen
+local function OvenTransition( )  
+    levelCounter = 1     
+    composer.gotoScene( "oven_screen", {effect = "fade", time = 0}) 
+end 
+
+--this function transition to the microwave screen
+local function MicrowaveTransition( )  
+    levelCounter = 1     
+    composer.gotoScene( "microwave_screen", {effect = "fade", time = 0}) 
+end 
+
+--------------------------------------------
+--GLOBAL FUNCTIONS
+--------------------------------------------
+  --this function stops the timer and hides the timer text
+  function StopTimer(event)
+    timer.cancel(countDownTimer)
+    clockText.isVisble = false
+  end
+ 
+  --this function updates the time
+  function UpdateTime()
+    
+    --decrement the number of seconds   
+    secondsLeft1 = secondsLeft1 - 1
+
+    --display the number of seconds left in the clock object
+    clockText.text = minutesLeft1 .. "min " .. secondsLeft1 .. "sec"
+
+    if (secondsLeft1 == 0) then
+        --reset the number of seconds
+        secondsLeft1 = totalSeconds1
+        minutesLeft1 = minutesLeft1 - 1
+    end
+    
+    if (minutesLeft1 < 0) then
+      --composer.gotoScene("Lose_screen", {effect = "fade", time = 1000}) 
+      --StopTimer()     
+      timer.cancel(countDownTimer)
+      clockText.isVisble = false
+    end
+
+  end
+
+  function StartTimer()
+    -- create a countdown timer that loops indefinetly
+    countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
+  end
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -92,19 +167,20 @@ function scene:create( event )
        ---------------------------------------------------------------------------
 
       --create the backgroud
-       bkg = display.newImageRect("Level3/Level3ScreenValeriaV.png", 0, 0, 0, 0)
+      bkg = display.newImageRect("Level3/Level3ScreenValeriaV.png", 0, 0, 0, 0)
       bkg.width = display.contentWidth
       bkg.height = display.contentHeight+40
       bkg.x = 510
       bkg.y = 400
       sceneGroup:insert(bkg)
 
+      
 
       ------------------------------------------------------------------------
       --CREATE THE OBJECTS (BUTTONS)
 
-      --Creating First Drawer Button
-      drawer1 = widget.newButton(
+      --Creating First Cupboard Button
+      cupboard1 = widget.newButton(
          {
              --set its possition on the screen 
               x = 95,
@@ -118,13 +194,13 @@ function scene:create( event )
                height = 200,
 
                -- When the button is released, call the LevelSelect screen transition function
-               onRelease = CreditsTransition
+               onRelease = Cupboard1Transition
             })
 
-      sceneGroup:insert(drawer1)
+      sceneGroup:insert(cupboard1)
 
-      --Creating Second Drawer Button
-      drawer2 = widget.newButton(
+      --Creating Second Cupboard Button
+      cupboard2 = widget.newButton(
          {
              --set its possition on the screen 
               x = 295,
@@ -138,13 +214,13 @@ function scene:create( event )
                height = 200,
 
                -- When the button is released, call the LevelSelect screen transition function
-               onRelease = CreditsTransition
+               onRelease = Cupboard2Transition
             })
 
-      sceneGroup:insert(drawer2)
+      sceneGroup:insert(cupboard2)
   
-     --Creating Third Drawer Button
-      drawer3 = widget.newButton(
+     --Creating Third Cupboard Button
+      cupboard3 = widget.newButton(
          {
              --set its possition on the screen 
               x = 98,
@@ -158,13 +234,13 @@ function scene:create( event )
                height = 180,
 
                -- When the button is released, call the LevelSelect screen transition function
-               onRelease = CreditsTransition
+               onRelease = Cupboard3Transition
             })
 
-      sceneGroup:insert(drawer3)
+      sceneGroup:insert(cupboard3)
 
-      --Creating Fourth Drawer Button
-      drawer4 = widget.newButton(
+      --Creating Fourth Cupboard Button
+      cupboard4 = widget.newButton(
          {
              --set its possition on the screen 
               x = 305,
@@ -178,13 +254,13 @@ function scene:create( event )
                height = 222,
 
                -- When the button is released, call the LevelSelect screen transition function
-               onRelease = CreditsTransition
+               onRelease = Cupboard4Transition
             })
 
-      sceneGroup:insert(drawer4)
+      sceneGroup:insert(cupboard4)
 
-      --Creating Fifth Drawer Button
-      drawer5 = widget.newButton(
+      --Creating Fifth Cupboard Button
+      cupboard5 = widget.newButton(
          {
              --set its possition on the screen 
               x = 713,
@@ -198,13 +274,13 @@ function scene:create( event )
                height = 222,
 
                -- When the button is released, call the LevelSelect screen transition function
-               onRelease = CreditsTransition
+               onRelease = Cupboard5Transition
             })
 
-      sceneGroup:insert(drawer5)
+      sceneGroup:insert(cupboard5)
       
-       --Creating Fifth Drawer Button
-      drawer6 = widget.newButton(
+      --Creating  Drawer Button
+      drawer = widget.newButton(
          {
              --set its possition on the screen 
               x = 513,
@@ -218,12 +294,80 @@ function scene:create( event )
                height = 222,
 
                -- When the button is released, call the LevelSelect screen transition function
-               onRelease = CreditsTransition
+               onRelease = DrawersTransition
             })
 
-      sceneGroup:insert(drawer6)
+      sceneGroup:insert(drawer)
 
+      --Creating Fridge Button
+      fridge = widget.newButton(
+         {
+             --set its possition on the screen 
+              x = 925,
+              y = 368,
 
+               --Insert the images here
+               defaultFile = "Separate/FridgeValeriaV.png",
+
+              --set the size of the image
+               width = 210,
+               height = 440,
+
+               -- When the button is released, call the LevelSelect screen transition function
+               onRelease = FridgeTransition
+            })
+      fridge:scale(-1,1)
+      sceneGroup:insert(fridge)
+
+      --Creating Oven Button
+      oven = widget.newButton(
+         {
+             --set its possition on the screen 
+              x = 93,
+              y = 300,
+
+               --Insert the images here
+               defaultFile = "Separate/OvenValeriaV.png",
+
+              --set the size of the image
+               width = 210,
+               height = 230,
+
+               -- When the button is released, call the LevelSelect screen transition function
+               onRelease = OvenTransition
+            })
+  
+      sceneGroup:insert(oven)
+
+      --Creating Microwave Button
+      microwave= widget.newButton(
+         {
+             --set its possition on the screen 
+              x = 485,
+              y = 200,
+
+               --Insert the images here
+               defaultFile = "Separate/MicrowaveValeriaV.png",
+
+              --set the size of the image
+               width = 140,
+               height = 130,
+
+               -- When the button is released, call the LevelSelect screen transition function
+               onRelease = MicrowaveTransition
+            })
+  
+      sceneGroup:insert(microwave)
+
+      ----------------------------
+      --TIMER OBJECTS
+      ----------------------------
+      --create the clock object
+       clockText = display.newText("", 0, 0, native.systemFontBold, 55)
+       clockText.x = 870
+       clockText.y = 50
+       clockText:setTextColor(255/255, 195/255, 0/255)
+       sceneGroup:insert(clockText)
  -------------------------------------------------------------------------------------
  --sounds
  -------------------------------------------------------------------------------------
@@ -242,6 +386,8 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
+        UpdateTime()
+        StartTimer()
        
     end
 end
@@ -258,7 +404,6 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
- 
     end
 end
  
