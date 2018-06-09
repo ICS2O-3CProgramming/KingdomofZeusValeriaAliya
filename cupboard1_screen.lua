@@ -20,11 +20,10 @@ local scene = composer.newScene( sceneName )
 ---------------------------------------------------------------------------------------
 local bkg
 local backButton
-local key
---TIMER VARIABLES
-local clockText
 
-levelCounter = 1
+---------------------------------------------------------------------------------------
+--GLOBAL VARIABLES
+---------------------------------------------------------------------------------------
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -46,47 +45,26 @@ levelCounter = 1
 local function level3Transition( )
   if (levelCounter == 1) then
     composer.gotoScene( "level3Zeus_screen", {effect = "fade", time = 0}) 
+  elseif (levelCounter == 2) then
+    composer.gotoScene( "level3Dino_screen", {effect = "fade", time = 0}) 
   end
 end 
 
 --this function displays or not (depends on the scene) the key
 local function displayKey()
-  if (levelCounter == 1) then
-    key.isVisible = true
+  if (levelCounter == 2) then
+    key1.isVisible = true
   elseif(levelCounter == 1)then
-    key.isVisible = false
+    key1.isVisible = false
   end
 end
 
 --this function to the simple division scene
 local function divisionScene()
   composer.showOverlay("division_scene", {isModal = true, effect = "fade", time = 500})
+
 end
 
---[[local function displayTimer( )
-  if (levelCounter == 1) then
-    --this function updates the time
-    
-    --decrement the number of seconds   
-    secondsLeft1 = secondsLeft1 - 1
-
-    --display the number of seconds left in the clock object
-    clockText.text = minutesLeft1 .. "min " .. secondsLeft1 .. "sec"
-
-    if (secondsLeft1 == 0) then
-        --reset the number of seconds
-        secondsLeft1 = totalSeconds1
-        minutesLeft1 = minutesLeft1 - 1
-    end
-    
-    if (minutesLeft1 < 0) then
-      --composer.gotoScene("Lose_screen", {effect = "fade", time = 1000}) 
-      --StopTimer()     
-      timer.cancel(countDownTimer)
-      clockText.isVisble = false
-    end
-  end
-end ]]
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -125,7 +103,7 @@ function scene:create( event )
       sceneGroup:insert(backButton)
 
       --create the key
-      key = widget.newButton(
+      key1 = widget.newButton(
         {
           --load the image files
           defaultFile = "Level3/KeyValeriaV.png",
@@ -135,9 +113,8 @@ function scene:create( event )
           -- when the button is pressed call the function go to main scene
           onRelease = divisionScene
          })
-      key.isVisible = false
-      sceneGroup:insert(key)
-
+      key1.isVisible = false
+      sceneGroup:insert(key1)
 
       ----------------------------
       --TIMER OBJECTS

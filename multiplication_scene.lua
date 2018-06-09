@@ -12,7 +12,7 @@ local composer = require( "composer" )
 
 local widget = require ("widget")
 
-local sceneName = "cupboard1_screen.lua" 
+local sceneName = "multiplication_scene.lua" 
 local scene = composer.newScene( sceneName )
 
 ---------------------------------------------------------------------------------------
@@ -80,9 +80,7 @@ local function createQuestion()
   
   --find the answer
   answer = firstNum * secondNum
-  secondNum = answer
-  answer = secondNum/firstNum
-  print(answer)
+ 
  
   --create the wrong answers
   wrong1 = answer + math.random(1,5)
@@ -90,7 +88,7 @@ local function createQuestion()
   wrong3 = answer + math.random(6, 9)
 
   --create the question (text)
-  questionText.text = secondNum .. " / " .. firstNum .. " = "
+  questionText.text = secondNum .. " * " .. firstNum .. " = "
 
   --creating the answer text 
   answerText.text = answer
@@ -298,10 +296,10 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
-        if (levelCounter == 1) then
-          key2.isVisible = false
-        elseif(levelCounter == 2)then
-          key1.isVisible = false
+        if (levelCounter == 2) then
+          key3.isVisible = false
+        elseif(levelCounter == 1)then
+          key4.isVisible = false
         end
         --wrongText1.isVisible = true
         --wrongText2.isVisible = true

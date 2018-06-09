@@ -12,7 +12,7 @@ local composer = require( "composer" )
 
 local widget = require ("widget")
 
-local sceneName = "cupboard1_screen.lua" 
+local sceneName = "cupboard3_screen.lua" 
 local scene = composer.newScene( sceneName )
 
 ---------------------------------------------------------------------------------------
@@ -21,9 +21,9 @@ local scene = composer.newScene( sceneName )
 local bkg
 local backButton
 
--- set the boolean varibales to know if they have already touched an image 
-
-
+---------------------------------------------------------------------------------------
+--GLOBAL VARIABLES
+---------------------------------------------------------------------------------------
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -40,13 +40,17 @@ local backButton
 --LOCAL FUNCTIONS
 -------------------------------------------
 
---this function transition to the drawer screen
+--this function transition to the first cuboard screen
 
 local function level3Transition( )
   if (levelCounter == 1) then
     composer.gotoScene( "level3Zeus_screen", {effect = "fade", time = 0}) 
+  elseif (levelCounter == 2) then
+    composer.gotoScene( "level3Dino_screen", {effect = "fade", time = 0}) 
   end
 end 
+
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -101,6 +105,7 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
+        --displayTimer( )
        
     end
 end

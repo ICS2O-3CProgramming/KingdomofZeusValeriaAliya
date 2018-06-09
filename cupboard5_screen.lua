@@ -12,7 +12,7 @@ local composer = require( "composer" )
 
 local widget = require ("widget")
 
-local sceneName = "cupboard1_screen.lua" 
+local sceneName = "cupboard2_screen.lua" 
 local scene = composer.newScene( sceneName )
 
 ---------------------------------------------------------------------------------------
@@ -21,9 +21,9 @@ local scene = composer.newScene( sceneName )
 local bkg
 local backButton
 
--- set the boolean varibales to know if they have already touched an image 
-
-
+---------------------------------------------------------------------------------------
+--GLOBAL VARIABLES
+---------------------------------------------------------------------------------------
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -40,13 +40,31 @@ local backButton
 --LOCAL FUNCTIONS
 -------------------------------------------
 
---this function transition to the drawer screen
+--this function transition to the first cuboard screen
 
 local function level3Transition( )
   if (levelCounter == 1) then
     composer.gotoScene( "level3Zeus_screen", {effect = "fade", time = 0}) 
+  elseif (levelCounter == 2) then
+    composer.gotoScene( "level3Dino_screen", {effect = "fade", time = 0}) 
   end
 end 
+
+--this function displays or not (depends on the scene) the key
+local function displayKey()
+  if (levelCounter == 1) then
+    key2.isVisible = true
+  elseif(levelCounter == 2)then
+    key2.isVisible = false
+  end
+end
+
+--this function to the simple division scene
+local function divisionScene()
+  composer.showOverlay("division_scene", {isModal = true, effect = "fade", time = 500})
+
+end
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -60,7 +78,7 @@ function scene:create( event )
        ---------------------------------------------------------------------------
 
       --create the backgroud
-      bkg = display.newImageRect("OpenObjects/OpenDrawer4.png", 0, 0, 0, 0)
+      bkg = display.newImageRect("OpenObjects/OpenDrawer2.png", 0, 0, 0, 0)
       bkg.width = display.contentWidth
       bkg.height = display.contentHeight+40
       bkg.x = 510
@@ -83,6 +101,20 @@ function scene:create( event )
             onRelease = level3Transition
           })
       sceneGroup:insert(backButton)
+
+      --create the key
+      key2 = widget.newButton(
+        {
+          --load the image files
+          defaultFile = "Level3/KeyValeriaV.png",
+          --set the position
+          x = 400,
+          y = 470,
+          -- when the button is pressed call the function go to main scene
+          onRelease = divisionScene
+         })
+      key2.isVisible = false
+      sceneGroup:insert(key2)
  -------------------------------------------------------------------------------------
  --sounds
  -------------------------------------------------------------------------------------
@@ -101,6 +133,8 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
+        --displayTimer( )
+        displayKey()
        
     end
 end

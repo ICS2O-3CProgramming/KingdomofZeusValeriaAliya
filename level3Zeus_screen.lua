@@ -5,9 +5,6 @@
 -- Description: 
 
 -- Naming scene
-
-
-
 local composer = require( "composer" )
 
 local widget = require ("widget")
@@ -37,11 +34,12 @@ local clockText
 --GLOBAL VARIABLES
 ---------------------------------------------------------------------------------------
 levelCounter = 0
+mathCounter = 0
 
 --TIMER VARIABLES
 --local countDownTimer
-totalSeconds1 = 10
-secondsLeft1 = 10
+totalSeconds1 = 60
+secondsLeft1 = 60
 minutesLeft1 = 1
 
 timerStarted = false
@@ -145,11 +143,8 @@ end
     end
     
     if (minutesLeft1 < 0) then
-      --composer.gotoScene("Lose_screen", {effect = "fade", time = 1000}) 
-      --StopTimer()     
-      timer.cancel(countDownTimer)
-      timerStarted = false
-      clockText.isVisible = false
+      StopTimer()
+      composer.gotoScene("Lose_screen", {effect = "fade", time = 1000})      
     end
 
   end
