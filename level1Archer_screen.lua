@@ -23,6 +23,7 @@ local bookOpen
 local walkingArcher
 local pannel
 local instructions
+local pauseButton
 
 --the text that displays the question
 local questionText 
@@ -59,6 +60,13 @@ local wrongChannel
 local correctSound
 local correctChannel
 
+local passedLevel
+
+------------------------------------
+--GLOBAL VARIABLE
+------------------------------------
+levelStart1 = false
+
 ----------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------
@@ -80,11 +88,13 @@ local function moveArcher()
 end
 
 local function moveArcher2()
-  transition.to(walkingArcher, { x = display.contentWidth/3*2.6, y = display.contentHeight/3*2.8, time = 500})
+  transition.to(walkingArcher, { alpah = 1, x = display.contentWidth/3*2.6, y = display.contentHeight/3*2.8, time = 500})
   transition.to(pannel, {alpha = 0, time = 800})
   transition.to(instructions, {alpha = 0, time = 800})
   transition.to(bookClosed, {alpha = 1, time = 1000})
+  pauseButton.alpha = 1
 end
+
 
 -----------------------------------------
 --QUESTION's FUNCTIONS
@@ -305,9 +315,9 @@ end
 
 -- Function that Removes Listeners to each answer box
 function RemoveEventListeners()
-    correctImage:removeEventListener("touch", TouchListenerCorrectImage)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
+    --correctImage:removeEventListener("touch", TouchListenerCorrectImage)
+    --incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
+    --incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
 end 
 
 local function hideQuestion()
@@ -316,15 +326,29 @@ local function hideQuestion()
   heart1.alpha = 0
   heart2.alpha = 0
   heart3.alpha = 0 
-  correct = 0
+  correct = correct
   print(correct)
   wrong = 3
   print(wrong)
 end
 
+--this function transition to the pause screen
+local function pauseTransition()
+  composer.showOverlay("pause1_screen", {isModal = true, effect = "fade", time = 500})
+  RemoveImageAnswers()
+  hideQuestion()
+  pauseButton.alpha = 0 
+  walkingArcher.alpha = 0
+end
+
 -- -----------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -- -----------------------------------------------------------------------------------
+function removePause1()
+   openBook()
+   moveArcher2()
+   RestartLevel1()
+end
 
 -- Function to Restart Level 1
 function RestartLevel1()
@@ -363,6 +387,10 @@ function checkAnswersL1()
   
 end
 
+function playSound2()
+   bkgChannel = audio.play(bkgSound, {loop = -1, channel = 14})
+end
+
 -- -----------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -- -----------------------------------------------------------------------------------
@@ -391,7 +419,7 @@ function scene:create( event )
   bkg.height = display.contentHeight
   --Associating display objects with this scene
   sceneGroup:insert(bkg)
-  
+
   --create the closed book
   bookClosed = display.newImage("Level1Images/book1.png")
   bookClosed.x = display.contentWidth/2
@@ -478,6 +506,34 @@ function scene:create( event )
   heart3.alpha = 0
   --Associating display objects with this scene
   sceneGroup:insert(heart3)
+
+   --Creating Play Button
+    pauseButton = widget.newButton(
+      {
+          --set its possition on the screen 
+          x = 900,
+          y = 80,
+
+          --Insert the images here
+          defaultFile = "ButtonImages/PauseButton.png",
+
+          --set the size of the image
+            width = 80,
+            height = 80,
+
+            -- When the button is released, call the LevelSelect screen transition function
+            onRelease = pauseTransition
+
+       })
+    pauseButton.alpha = 0
+    sceneGroup:insert(pauseButton)
+
+
+  passedLevel = 0
+  moveArcher()
+  timer.performWithDelay(5600, openBook)
+  timer.performWithDelay(4500, moveArcher2)
+  timer.performWithDelay(5600, RestartLevel1)
 end
  
  
@@ -493,12 +549,17 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-      moveArcher()
-      timer.performWithDelay(5600, openBook)
-      timer.performWithDelay(4500, moveArcher2)
+      --moveArcher()
+      --timer.performWithDelay(5600, openBook)
+      --timer.performWithDelay(4500, moveArcher2)
       --timer.performWithDelay(8000, ShowHearts)
-      timer.performWithDelay(5600, RestartLevel1)
-      bkgChannel = audio.play(bkgSound)
+      if (passedLevel == 1) then
+        openBook()
+        moveArcher2()
+        RestartLevel1()
+      end
+      
+      playSound2()
     end
 end
  
@@ -517,8 +578,10 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-        bkgStop = audio.stop(bkgChannel)
+        bkgStop = audio.stop(14)
         audio.play(1)
+        passedLevel = 1
+        correct = 0
     end
 end
  

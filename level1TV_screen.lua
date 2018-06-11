@@ -8,7 +8,7 @@ local composer = require( "composer" )
 local widget = require( "widget")
 
 --give the name to the scene
-sceneName = "level1_screen"
+sceneName = "level1TV_screen"
 
 --creating scene object 
 local scene = composer.newScene(sceneName)
@@ -20,9 +20,10 @@ local scene = composer.newScene(sceneName)
 local bkg
 local bookClosed
 local bookOpen
-local walkingTV
+local Tv
 local pannel
 local instructions
+local pauseButton
 
 --the text that displays the question
 local questionText 
@@ -59,6 +60,13 @@ local wrongChannel
 local correctSound
 local correctChannel
 
+local passedLevel
+
+------------------------------------
+--GLOBAL VARIABLE
+------------------------------------
+--levelStart1 = false
+
 ----------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------
@@ -72,19 +80,21 @@ local function openBook()
   transition.to(heart3, {alpha = 1, time = 700})
 end
 
---this function moves the TV
-local function moveTV()
-  transition.to(walkingTV, { x = display.contentWidth/3*2, y = display.contentHeight/3*2})
+--this function moves the Tv
+local function moveTv()
+  transition.to(Tv, { x = display.contentWidth/3*2, y = display.contentHeight/3*2})
   transition.to(pannel, {alpha = 1, time = 500})
   transition.to(instructions, {alpha = 1, time = 500})
 end
 
-local function moveTV2()
-  transition.to(walkingTV, { x = display.contentWidth/3*2.6, y = display.contentHeight/3*2.8, time = 500})
+local function moveTv2()
+  transition.to(Tv, { alpah = 1, x = display.contentWidth/3*2.6, y = display.contentHeight/3*2.8, time = 500})
   transition.to(pannel, {alpha = 0, time = 800})
   transition.to(instructions, {alpha = 0, time = 800})
   transition.to(bookClosed, {alpha = 1, time = 1000})
+  pauseButton.alpha = 1
 end
+
 
 -----------------------------------------
 --QUESTION's FUNCTIONS
@@ -171,7 +181,7 @@ local function RemoveImageAnswers()
     display.remove(incorrectImage2)
 end
 
-local function SelectScreenTransition()
+local function WinScreenTransition()
     composer.gotoScene("Select_screen", {effect = "fade", time = 500})
 end
 
@@ -222,13 +232,13 @@ local function TouchListenerCorrectImage(touch)
                  print("plus"..correct)
                 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersTV()
+                checkAnswersTv()
 
                 --hide the question and answers
                 if (correct ~= 3) or (wrong ~= 0) then
-                  RemoveEventListenersTV()
+                  RemoveEventListenersTv()
                   RemoveImageAnswers()
-                  RestartTV()
+                  RestartLevelTV1()
                 end
         end
     end                
@@ -257,7 +267,7 @@ local function TouchListenerIncorrectImage1(touch)
                 print("minus"..wrong) 
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersTV()  
+                checkAnswersTv()  
 
                 --hide the wrong answer
                 transition.to(incorrectImage1, {alpha = 0, time = 500})
@@ -288,7 +298,7 @@ local function TouchListenerIncorrectImage2(touch)
                 print("minus"..wrong)
 
                 --check the answers and based on how many points the user lost or gained
-                checkAnswersTV()
+                checkAnswersTv()
                 
                 --hide the wrong answer
                 transition.to(incorrectImage2, {alpha = 0, time = 500})
@@ -303,12 +313,6 @@ local function AddEventListeners()
     incorrectImage2:addEventListener("touch", TouchListenerIncorrectImage2)
 end 
 
--- Function that Removes Listeners to each answer box
-function RemoveEventListenersTV()
-    correctImage:removeEventListener("touch", TouchListenerCorrectImage)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
-    incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
-end 
 
 local function hideQuestion()
   bookOpen.alpha = 0
@@ -316,25 +320,47 @@ local function hideQuestion()
   heart1.alpha = 0
   heart2.alpha = 0
   heart3.alpha = 0 
-  correct = 0
+  correct = correct
   print(correct)
   wrong = 3
   print(wrong)
 end
 
+--this function transition to the pause screen
+local function pauseTransition()
+  composer.showOverlay("pause2_screen", {isModal = true, effect = "fade", time = 500})
+  RemoveImageAnswers()
+  hideQuestion()
+  pauseButton.alpha = 0 
+  Tv.alpha = 0
+end
+
 -- -----------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -- -----------------------------------------------------------------------------------
+-- Function that Removes Listeners to each answer box
+function RemoveEventListenersTv()
+    --correctImage:removeEventListener("touch", TouchListenerCorrectImage)
+    --incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage1)
+    --incorrectImage1:removeEventListener("touch", TouchListenerIncorrectImage2)
+end 
+
+function removePause2()
+   openBook()
+   moveTv2()
+   RestartLevelTV1()
+   Tv.alpha = 1
+end
 
 -- Function to Restart Level 1
-function RestartTV()
+function RestartLevelTV1()
     bookOpen.isVisible = true
     DisplayQuestion()
     PositionAnswers()
     AddEventListeners()
 end
 
-function checkAnswersTV()
+function checkAnswersTv()
   if (wrong == 2 ) then
     heart1.alpha = 0
 
@@ -355,7 +381,7 @@ function checkAnswersTV()
     correctImage.isVisible = false
     incorrectImage1.isVisible = false
     incorrectImage2.isVisible = false
-    timer.performWithDelay(0, SelectScreenTransition)
+    timer.performWithDelay(0, WinScreenTransition)
     selectCounter = 0 + 1
     print ("counter"..selectCounter)
     
@@ -363,7 +389,9 @@ function checkAnswersTV()
   
 end
 
-
+function playSoundTv()
+   bkgChannel = audio.play(bkgSound, {loop = -1, channel = 15})
+end
 
 -- -----------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -393,7 +421,7 @@ function scene:create( event )
   bkg.height = display.contentHeight
   --Associating display objects with this scene
   sceneGroup:insert(bkg)
-  
+
   --create the closed book
   bookClosed = display.newImage("Level1Images/book1.png")
   bookClosed.x = display.contentWidth/2
@@ -431,14 +459,14 @@ function scene:create( event )
   --Associating display objects with this scene
   sceneGroup:insert(instructions)
 
- --create the walkingTV
-  walkingTV = display.newImage("Level1Images/WalkingTvValeria&Aliya@2x.png")
-  walkingTV.width = 600
-  walkingTV.height = 450
-  walkingTV.x = -300
-  walkingTV.y = display.contentHeight/2
+ --create the Tv
+  Tv = display.newImage("Level1Images/WalkingTvValeria&Aliya@2x.png")
+  Tv.width = 600
+  Tv.height = 500
+  Tv.x = -300
+  Tv.y = display.contentHeight/2
   --Associating display objects with this scene
-  sceneGroup:insert(walkingTV)
+  sceneGroup:insert(Tv)
 
   --the text that displays the questions
   questionText = display.newText( "" , 1, 1, native.systemFontBold, 50)
@@ -480,6 +508,34 @@ function scene:create( event )
   heart3.alpha = 0
   --Associating display objects with this scene
   sceneGroup:insert(heart3)
+
+   --Creating Play Button
+    pauseButton = widget.newButton(
+      {
+          --set its possition on the screen 
+          x = 900,
+          y = 80,
+
+          --Insert the images here
+          defaultFile = "ButtonImages/PauseButton.png",
+
+          --set the size of the image
+            width = 80,
+            height = 80,
+
+            -- When the button is released, call the LevelSelect screen transition function
+            onRelease = pauseTransition
+
+       })
+    pauseButton.alpha = 0
+    sceneGroup:insert(pauseButton)
+
+
+  passedLevel = 0
+  moveTv()
+  timer.performWithDelay(5600, openBook)
+  timer.performWithDelay(4500, moveTv2)
+  timer.performWithDelay(5600, RestartLevelTV1)
 end
  
  
@@ -495,12 +551,17 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-      moveTV()
-      timer.performWithDelay(5600, openBook)
-      timer.performWithDelay(4500, moveTV2)
+      --moveTv()
+      --timer.performWithDelay(5600, openBook)
+      --timer.performWithDelay(4500, moveTv2)
       --timer.performWithDelay(8000, ShowHearts)
-      timer.performWithDelay(5600, RestartTV)
-      bkgChannel = audio.play(bkgSound)
+      if (passedLevel == 1) then
+        openBook()
+        moveTv2()
+        RestartLevelTV1()
+      end
+      
+      playSoundTv()
     end
 end
  
@@ -513,15 +574,16 @@ function scene:hide( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen
-        RemoveEventListenersTV()
+        RemoveEventListenersTv()
         RemoveImageAnswers()
         hideQuestion()
 
     elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen    
-        bkgStop = audio.stop(bkgChannel)
+        -- Code here runs immediately after the scene goes entirely off screen
+        bkgStop = audio.stop(15)
         audio.play(1)
-
+        passedLevel = 1
+        correct = 0
     end
 end
  

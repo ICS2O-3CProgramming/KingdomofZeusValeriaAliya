@@ -63,6 +63,22 @@ local scene = composer.newScene(sceneName)
    transition.to(fire6, {x = -100, y = 800, time = 1000})
    transition.to(fire7, {x = 1200, y = 800, time = 1000})
  end 
+
+  --this functions turn key touched false
+ local function turnTouch()
+    --Dino screen
+    key1Touched = false
+    key3Touched = false
+    key4Touched = false
+    --Zeus screen
+    key2Touched = false
+    key5Touched = false
+    key6Touched = false
+    mathCounter = 0
+
+    secondsLeft2 = 60
+    secondsLeft1 = 60
+ end
 -- create()
 function scene:create( event )
  
@@ -206,7 +222,8 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
         bkgChannel = audio.play(bkgSound)
-         explosionStarts()
+        explosionStarts()
+        turnTouch()
         timer.performWithDelay(2000, fireMove)
  
     end

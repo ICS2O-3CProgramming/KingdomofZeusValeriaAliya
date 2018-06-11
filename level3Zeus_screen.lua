@@ -26,6 +26,7 @@ local drawer
 local fridge
 local oven
 local microwave
+local pauseButton
 
 --TIMER VARIABLES
 local clockText
@@ -61,6 +62,34 @@ timerStarted = false
 --------------------------------------------
 --LOCAL FUNCTIONS
 -------------------------------------------
+--this functions displays the instructions
+local function displayInstructions()
+  transition.to(instrText, {alpha = 1, time = 1000})
+end
+--this function creates the animation (moves the wizard, scroll and displays the instructions after a period of time)
+local function moveZeus()
+    transition.to(Zeus, {x = 850, y = 450, time = 1000})
+    transition.to(instructions, {x = 400, y = 400,time = 1000})
+    timer.performWithDelay(1000, displayInstructions)
+    timerStarted = true
+end
+
+--this function hides the instructions and displays the explossion image
+local function moveZeus2()
+    transition.to(Zeus, {x = 970, y = 600, height = 300, width = 400})
+    transition.to(instructions, {alpha = 0})
+    transition.to(instrText, {alpha = 0})
+    timerStarted = false
+    pauseButton.alpha = 1
+end
+
+--this functions checks the time
+local function checkTime()
+   if (timerStarted == false) then
+        StartTimer()
+        UpdateTime()
+   end
+end
 
 --this function transition to the first cupboard screen
 local function Cupboard1Transition( )  
@@ -116,6 +145,11 @@ local function MicrowaveTransition( )
     composer.gotoScene( "microwave_screen", {effect = "fade", time = 0}) 
 end 
 
+--this function transition to the pause screen
+local function pauseTransition()
+  composer.showOverlay("pause6_screen", {isModal = true, effect = "fade", time = 500})
+  StopTimer()
+end
 --------------------------------------------
 --GLOBAL FUNCTIONS
 --------------------------------------------
@@ -356,16 +390,60 @@ function scene:create( event )
   
       sceneGroup:insert(microwave)
 
+      Zeus = display.newImageRect("Level3/ZeusValeriaV@2x.png", 0, 0, 0, 0)
+      Zeus.x = -900
+      Zeus.y = -100
+      Zeus.width = 600
+      Zeus.height = 500
+      sceneGroup:insert(Zeus)
+
+      instructions = display.newImageRect("Level3/scrollValeriaV.png", 0, 0, 0, 0)
+      instructions.x = 1500
+      instructions.y = 400
+      instructions.height = 700
+      instructions.width = 700
+      sceneGroup:insert(instructions)
+
+      instrText = display.newText("  In this level you \n have to find three\n  keys and answer \n 3 math questions.\nAfterwards you will\n win the game and\nsave the kingdom of\n Zeus. Don't forget\n     that you have\n       limited time.", 400, 400, native.systemFontBold, 50)
+      instrText:setTextColor(0, 0, 0)
+      instrText.alpha = 0
+      sceneGroup:insert(instrText)
+
+           --Creating Play Button
+    pauseButton = widget.newButton(
+      {
+          --set its possition on the screen 
+          x = 920,
+          y = 70,
+
+          --Insert the images here
+          defaultFile = "ButtonImages/PauseButton.png",
+
+          --set the size of the image
+            width = 80,
+            height = 80,
+
+            -- When the button is released, call the LevelSelect screen transition function
+            onRelease = pauseTransition
+
+       })
+    pauseButton.alpha = 0
+    sceneGroup:insert(pauseButton)
+
       ----------------------------
       --TIMER OBJECTS
       ----------------------------
       --create the clock object
        clockText = display.newText("", 0, 0, native.systemFontBold, 55)
-       clockText.x = 900
+       clockText.x = 500
        clockText.y = 50
        clockText:setTextColor(255/255, 195/255, 0/255)
        sceneGroup:insert(clockText)
        
+       --call the function
+       timer.performWithDelay(0, moveZeus)
+       timer.performWithDelay(6000, moveZeus2)
+       timer.performWithDelay(6500, checkTime)
     
  -------------------------------------------------------------------------------------
  --sounds

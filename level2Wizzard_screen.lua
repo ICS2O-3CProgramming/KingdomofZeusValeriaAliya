@@ -9,6 +9,7 @@
 
 
 local composer = require( "composer" )
+local widget = require("widget")
 local sceneName = "level2.lua" 
 local scene = composer.newScene( sceneName )
 
@@ -21,6 +22,7 @@ local scroll
 local instructions
 local puzzleCounter = 0
 local explossion
+local pauseButton
 --this variable will set randomly the possition of the puzzles
 local changePosit
 
@@ -50,6 +52,8 @@ local correctChannel
 --magic sound
 local magicSound
 local magicChannel
+
+local levelCounter = 0
 --------------------------------------
 --PUZZLE FADED
 --------------------------------------
@@ -112,6 +116,12 @@ local function displayInstructions()
 	transition.to(instructions, {alpha = 1})
 end
 
+
+--this function transition to the pause screen
+local function pauseTransition()
+  composer.showOverlay("pause4_screen", {isModal = true, effect = "fade", time = 500})
+end
+
 --this function creates the animation (moves the wizard, scroll and displays the instructions after a period of time)
 local function movewizard()
     transition.to(wizard, {x = 280, y = 400, alpha = 1, time = 1000})
@@ -126,6 +136,7 @@ local function displayExplossion()
     transition.to(wizard, {alpha = 0})
     transition.to(scroll, {alpha = 0})
     transition.to(instructions, {alpha = 0})
+    pauseButton.alpha = 1
 end
 
 --this function hides the explossion and displays the puzzle
@@ -167,24 +178,24 @@ local function changePossition()
      piece1.y = 90
      --set the position of the second piece
      piece2.x = 910
-     piece2.y = 295
+     piece2.y = 450
      --set the position of the third piece
      piece3.x = 120
      piece3.y = 680
      --set the position of the fourth piece
      piece4.x = 910
-     piece4.y = 485
+     piece4.y = 680
      --set the position of the fifth piece
      piece5.x = 120
      piece5.y = 295
      --set the position of the sixth piece
-     piece6.x = 910
+     piece6.x = 650
      piece6.y = 680
      --set the position of the seventh piece
      piece7.x = 910
-     piece7.y = 90
+     piece7.y = 250
      --set the position of the eigthth piece
-     piece8.x = 500
+     piece8.x = 400
      piece8.y = 680
       --set the position of the nineth piece
      piece9.x = 120
@@ -196,24 +207,24 @@ local function changePossition()
      piece2.y = 90
      --set the position of the second piece
      piece3.x = 910
-     piece3.y = 295
+     piece3.y = 455
      --set the position of the third piece
      piece4.x = 120
      piece4.y = 680
      --set the position of the fourth piece
      piece5.x = 910
-     piece5.y = 485
+     piece5.y = 680
      --set the position of the fifth piece
      piece6.x = 120
      piece6.y = 295
      --set the position of the sixth piece
-     piece7.x = 910
+     piece7.x = 650
      piece7.y = 680
      --set the position of the seventh piece
      piece8.x = 910
-     piece8.y = 90
+     piece8.y = 250
      --set the position of the eigthth piece
-     piece9.x = 500
+     piece9.x = 400
      piece9.y = 680
       --set the position of the nineth piece
      piece1.x = 120
@@ -225,13 +236,13 @@ local function changePossition()
      piece3.y = 90
      --set the position of the second piece
      piece4.x = 910
-     piece4.y = 295
+     piece4.y = 455
      --set the position of the third piece
      piece5.x = 120
      piece5.y = 680
      --set the position of the fourth piece
      piece6.x = 910
-     piece6.y = 485
+     piece6.y = 680
      --set the position of the fifth piece
      piece7.x = 120
      piece7.y = 295
@@ -240,9 +251,9 @@ local function changePossition()
      piece8.y = 680
      --set the position of the seventh piece
      piece9.x = 910
-     piece9.y = 90
+     piece9.y = 250
      --set the position of the eigthth piece
-     piece1.x = 500
+     piece1.x = 400
      piece1.y = 680
       --set the position of the nineth piece
      piece2.x = 120
@@ -254,24 +265,24 @@ local function changePossition()
      piece4.y = 90
      --set the position of the second piece
      piece5.x = 910
-     piece5.y = 295
+     piece5.y = 455
      --set the position of the third piece
      piece6.x = 120
      piece6.y = 680
      --set the position of the fourth piece
      piece7.x = 910
-     piece7.y = 485
+     piece7.y = 680
      --set the position of the fifth piece
      piece8.x = 120
      piece8.y = 295
      --set the position of the sixth piece
-     piece9.x = 910
+     piece9.x = 650
      piece9.y = 680
      --set the position of the seventh piece
      piece1.x = 910
-     piece1.y = 90
+     piece1.y = 250
      --set the position of the eigthth piece
-     piece2.x = 500
+     piece2.x = 400
      piece2.y = 680
       --set the position of the nineth piece
      piece3.x = 120
@@ -283,24 +294,24 @@ local function changePossition()
      piece5.y = 90
      --set the position of the second piece
      piece6.x = 910
-     piece6.y = 295
+     piece6.y = 455
      --set the position of the third piece
      piece7.x = 120
      piece7.y = 680
      --set the position of the fourth piece
      piece8.x = 910
-     piece8.y = 485
+     piece8.y = 680
      --set the position of the fifth piece
      piece9.x = 120
      piece9.y = 295
      --set the position of the sixth piece
-     piece1.x = 910
+     piece1.x = 650
      piece1.y = 680
      --set the position of the seventh piece
      piece2.x = 910
-     piece2.y = 90
+     piece2.y = 250
      --set the position of the eigthth piece
-     piece3.x = 500
+     piece3.x = 400
      piece3.y = 680
       --set the position of the nineth piece
      piece4.x = 120
@@ -312,24 +323,24 @@ local function changePossition()
      piece6.y = 90
      --set the position of the second piece
      piece7.x = 910
-     piece7.y = 295
+     piece7.y = 455
      --set the position of the third piece
      piece8.x = 120
      piece8.y = 680
      --set the position of the fourth piece
      piece9.x = 910
-     piece9.y = 485
+     piece9.y = 680
      --set the position of the fifth piece
      piece1.x = 120
      piece1.y = 295
      --set the position of the sixth piece
-     piece2.x = 910
+     piece2.x = 650
      piece2.y = 680
      --set the position of the seventh piece
      piece3.x = 910
-     piece3.y = 90
+     piece3.y = 250
      --set the position of the eightth piece
-     piece4.x = 500
+     piece4.x = 400
      piece4.y = 680
       --set the position of the nineth piece
      piece5.x = 120
@@ -341,24 +352,24 @@ local function changePossition()
      piece7.y = 90
      --set the position of the second piece
      piece8.x = 910
-     piece8.y = 295
+     piece8.y = 455
      --set the position of the third piece
      piece9.x = 120
      piece9.y = 680
      --set the position of the fourth piece
      piece1.x = 910
-     piece1.y = 485
+     piece1.y = 680
      --set the position of the fifth piece
      piece2.x = 120
      piece2.y = 295
      --set the position of the sixth piece
-     piece3.x = 910
+     piece3.x = 650
      piece3.y = 680
      --set the position of the seventh piece
      piece4.x = 910
-     piece4.y = 90
+     piece4.y = 250
      --set the position of the eigthth piece
-     piece5.x = 500
+     piece5.x = 400
      piece5.y = 680
       --set the position of the nineth piece
      piece6.x = 120
@@ -370,24 +381,24 @@ local function changePossition()
      piece8.y = 90
      --set the position of the second piece
      piece9.x = 910
-     piece9.y = 295
+     piece9.y = 455
      --set the position of the third piece
      piece1.x = 120
      piece1.y = 680
      --set the position of the fourth piece
      piece2.x = 910
-     piece2.y = 485
+     piece2.y = 680
      --set the position of the fifth piece
      piece3.x = 120
      piece3.y = 295
      --set the position of the sixth piece
-     piece4.x = 910
+     piece4.x = 650
      piece4.y = 680
      --set the position of the seventh piece
      piece5.x = 910
-     piece5.y = 90
+     piece5.y = 250
      --set the position of the eigthth piece
-     piece6.x = 500
+     piece6.x = 400
      piece6.y = 680
       --set the position of the nineth piece
      piece7.x = 120
@@ -399,24 +410,24 @@ local function changePossition()
      piece9.y = 90
      --set the position of the second piece
      piece1.x = 910
-     piece1.y = 295
+     piece1.y = 455
      --set the position of the third piece
      piece2.x = 120
      piece2.y = 680
      --set the position of the fourth piece
      piece3.x = 910
-     piece3.y = 485
+     piece3.y = 680
      --set the position of the fifth piece
      piece4.x = 120
      piece4.y = 295
      --set the position of the sixth piece
-     piece5.x = 910
+     piece5.x = 650
      piece5.y = 680
      --set the position of the seventh piece
      piece6.x = 910
-     piece6.y = 90
+     piece6.y = 250
      --set the position of the eigthth piece
-     piece7.x = 500
+     piece7.x = 400
      piece7.y = 680
       --set the position of the nineth piece
      piece8.x = 120
@@ -971,6 +982,13 @@ local function removeEventListener()
     piece9:removeEventListener("touch", movePiece9)
 end
 
+-----------------------------------------------------------------
+--GLOBAL FUNCTION
+-----------------------------------------------------------------
+function startWizzard()
+    bkgChannel = audio.play(bkgSound, { channel=3, loops=-1 })
+end
+
 -- -----------------------------------------------------------------------------------
 -- Global scene functions
 -- -----------------------------------------------------------------------------------
@@ -1186,6 +1204,28 @@ function scene:create( event )
     piece9.alpha = 0
     sceneGroup:insert(piece9)
 
+
+    --Creating Play Button
+    pauseButton = widget.newButton(
+      {
+          --set its possition on the screen 
+          x = 900,
+          y = 80,
+
+          --Insert the images here
+          defaultFile = "ButtonImages/PauseButton.png",
+
+          --set the size of the image
+            width = 80,
+            height = 80,
+
+            -- When the button is released, call the LevelSelect screen transition function
+            onRelease = pauseTransition
+
+       })
+    pauseButton.alpha = 0
+    sceneGroup:insert(pauseButton)
+
  --------------------------------------------------------------------------------------
  --sounds
  -------------------------------------------------------------------------------------
@@ -1196,6 +1236,10 @@ function scene:create( event )
   correctSound = audio.loadStream("Sounds/correct.mp3")
   --magic sound
   magicSound = audio.loadStream("Sounds/magic.mp3")
+
+  movewizard()
+  timer.performWithDelay(3000, displayExplossion)
+  timer.performWithDelay(3500, displayPuzzle)
 end
  
  
@@ -1210,12 +1254,15 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        movewizard()
+        if (levelCounter == 1) then
+         displayPuzzle()
+         pauseButton.alpha = 1
+        end
         changePossition()
         addEventListener()
-        timer.performWithDelay(3000, displayExplossion)
-        timer.performWithDelay(3500, displayPuzzle)
-        bkgChannel = audio.play(bkgSound, { channel=3, loops=-1 })
+        startWizzard()
+        
+        
     end
 end
  
@@ -1234,6 +1281,7 @@ function scene:hide( event )
         hidePuzzle()
         audio.stop(3)
         removeEventListener()
+        levelCounter = 1
  
     end
 end

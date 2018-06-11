@@ -10,6 +10,6 @@ display.setStatusBar(display.HiddenStatusBar)
 --require composer
 local composer = require("composer")
 
-composer.gotoScene("level3Dino_screen")
+composer.gotoScene("splash_screen")
 
 
