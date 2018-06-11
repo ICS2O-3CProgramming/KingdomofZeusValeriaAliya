@@ -109,6 +109,22 @@ local scene = composer.newScene(sceneName)
     timer.performWithDelay(2000, animateNotes3)
     timer.performWithDelay(3000, animateNotes4)
  end
+
+ --this functions turn key touched false
+ local function turnTouch()
+    --Dino screen
+    key1Touched = false
+    key3Touched = false
+    key4Touched = false
+    --Zeus screen
+    key2Touched = false
+    key5Touched = false
+    key6Touched = false
+    mathCounter = 0
+
+    secondsLeft2 = 60
+    secondsLeft1 = 60
+ end
  -------------------------------------------------------------------------------------
  --GLOBAL SCENE FUNCTION
  -----------------------------------------------------------------------------
@@ -259,6 +275,7 @@ function scene:show( event )
         -- Code here runs when the scene is entirely on screen
         bkgChannel = audio.play(bkgSound)
         animateNotes()
+        turnTouch()
  
     end
 end

@@ -5,8 +5,7 @@
 -- Description: 
 
 -- Naming scene
-
-
+-- jgkfb
 
 local composer = require( "composer" )
 
@@ -24,6 +23,7 @@ local backButton
 ---------------------------------------------------------------------------------------
 --GLOBAL VARIABLES
 ---------------------------------------------------------------------------------------
+key3Touched = false
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -62,7 +62,7 @@ end
 --this function to the simple division scene
 local function multiplicationScene()
   composer.showOverlay("multiplication_scene", {isModal = true, effect = "fade", time = 500})
-
+  key3Touched = true
 end
 
 -- -----------------------------------------------------------------------------------
@@ -133,8 +133,9 @@ function scene:show( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        --displayTimer( )
-        displayKey()
+        if (key3Touched == false) then
+         displayKey()
+       end
        
     end
 end

@@ -43,8 +43,6 @@ secondsLeft2 = 60
 minutesLeft2 = 1
 
 timerStarted2 = false
-
-
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -105,18 +103,17 @@ local function FridgeTransition( )
     composer.gotoScene( "fridge_screen", {effect = "fade", time = 0}) 
 end 
 
---this function transition to the oven screen
-local function OvenTransition( )  
-    levelCounter = 2     
-    composer.gotoScene( "oven_screen", {effect = "fade", time = 0}) 
-end 
-
 --this function transition to the microwave screen
-local function MicrowaveTransition( )  
-    levelCounter = 2     
-    composer.gotoScene( "microwave_screen", {effect = "fade", time = 0}) 
+local function MicrowaveTransition( )
+   levelCounter = 2      
+   composer.gotoScene( "microwave_screen", {effect = "fade", time = 0})    
 end 
 
+--this function transition to the oven screen
+local function OvenTransition( )
+   levelCounter = 2      
+   composer.gotoScene( "oven_screen", {effect = "fade", time = 0})    
+end
 --------------------------------------------
 --GLOBAL FUNCTIONS
 --------------------------------------------
@@ -124,7 +121,6 @@ end
   function StopTimer2(event)
     timer.cancel(countDownTimer2)
     timerStarted2 = false
-    clockText.isVisible = false
   end
  
   --this function updates the time
@@ -134,17 +130,14 @@ end
     secondsLeft2 = secondsLeft2 - 1
 
     --display the number of seconds left in the clock object
-    clockText.text = minutesLeft2 .. "min " .. secondsLeft2 .. "sec"
-
-    if (secondsLeft2 == 0) then
-        --reset the number of seconds
-        secondsLeft2 = totalSeconds2
-        minutesLeft2 = minutesLeft2 - 1
-    end
+    clockText.text = secondsLeft2 .. "sec"
     
-    if (minutesLeft2 < 0) then
-      StopTimer()
+    if (secondsLeft2 < 0) then
+      StopTimer2()
       composer.gotoScene("Lose_screen", {effect = "fade", time = 1000})      
+      key1Touched = false
+      key3Touched = false
+      key4Touched = false
     end
 
   end
@@ -365,7 +358,7 @@ function scene:create( event )
       ----------------------------
       --create the clock object
        clockText = display.newText("", 0, 0, native.systemFontBold, 55)
-       clockText.x = 870
+       clockText.x = 900
        clockText.y = 50
        clockText:setTextColor(255/255, 195/255, 0/255)
        sceneGroup:insert(clockText)
@@ -410,6 +403,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen      
+        
     end
 end
  

@@ -24,6 +24,7 @@ local backButton
 ---------------------------------------------------------------------------------------
 --GLOBAL VARIABLES
 ---------------------------------------------------------------------------------------
+key2Touched = false
 -----------------------------------------
 --SOUND
 -----------------------------------------
@@ -62,7 +63,7 @@ end
 --this function to the simple division scene
 local function divisionScene()
   composer.showOverlay("division_scene", {isModal = true, effect = "fade", time = 500})
-
+  key2Touched = true
 end
 
 -- -----------------------------------------------------------------------------------
@@ -134,7 +135,9 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
         --displayTimer( )
-        displayKey()
+        if (key2Touched == false ) then
+          displayKey()
+        end
        
     end
 end

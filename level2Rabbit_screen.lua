@@ -452,6 +452,7 @@ end
 local function checkPosition()
 
     if (puzzleCounter == 9) then
+        selectCounter = 0 + 2
         composer.gotoScene("Win_screen", {effect = fade, time = 1000})
     end
 

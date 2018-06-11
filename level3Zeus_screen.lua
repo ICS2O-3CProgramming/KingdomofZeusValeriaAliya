@@ -40,7 +40,6 @@ mathCounter = 0
 --local countDownTimer
 totalSeconds1 = 60
 secondsLeft1 = 60
-minutesLeft1 = 1
 
 timerStarted = false
 
@@ -124,7 +123,6 @@ end
   function StopTimer(event)
     timer.cancel(countDownTimer)
     timerStarted = false
-    clockText.isVisible = false
   end
  
   --this function updates the time
@@ -134,17 +132,15 @@ end
     secondsLeft1 = secondsLeft1 - 1
 
     --display the number of seconds left in the clock object
-    clockText.text = minutesLeft1 .. "min " .. secondsLeft1 .. "sec"
+    clockText.text =secondsLeft1 .. "sec"
 
-    if (secondsLeft1 == 0) then
-        --reset the number of seconds
-        secondsLeft1 = totalSeconds1
-        minutesLeft1 = minutesLeft1 - 1
-    end
     
-    if (minutesLeft1 < 0) then
+    if (secondsLeft1 < 0) then
       StopTimer()
       composer.gotoScene("Lose_screen", {effect = "fade", time = 1000})      
+      key2Touched = false
+      key5Touched = false
+      key6Touched = false
     end
 
   end
@@ -365,7 +361,7 @@ function scene:create( event )
       ----------------------------
       --create the clock object
        clockText = display.newText("", 0, 0, native.systemFontBold, 55)
-       clockText.x = 870
+       clockText.x = 900
        clockText.y = 50
        clockText:setTextColor(255/255, 195/255, 0/255)
        sceneGroup:insert(clockText)

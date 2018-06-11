@@ -165,8 +165,13 @@ end
 
 --this function chechs if 4 question were answered right then move to the win screen
 local function checkAnswers()
-  if (mathCounter == 4 ) then
-    composer.gotoScene( "Win_screen", {effect = "fade", time = 500})
+  if (mathCounter == 3 ) then
+    composer.gotoScene( "Win_screen", {effect = "fade", time = 0}) 
+    if (levelCounter == 2) then
+       StopTimer2()
+    elseif (levelCounter == 1) then
+       StopTimer()
+    end
   end
 end
 --when correct answer is pressed this function is executed
@@ -176,6 +181,7 @@ local function TouchListenerAnswer(touch)
     mathCounter = mathCounter + 1
     print(mathCounter)
     checkAnswers()
+
   end 
 end
 
