@@ -151,7 +151,7 @@ local function checkAnswers()
 end
 --this function chooses randmoly the operation
 local function randomOperation1()
-  operation = math.random(1,5)
+  operation = 5--math.random(1,5)
    if (operation == 1) then
      --create the divident
      divident = display.newImageRect("LongDivision/44.png", 0, 0, 0, 0)
@@ -924,15 +924,15 @@ local function randomOperation4()
      answerBox.isVisible = true
 
      --create correct quotient
-     remC2 = display.newImageRect("LongDivision/9.png", 0, 0, 0, 0)
+     remC2 = display.newImageRect("LongDivision/24.png", 0, 0, 0, 0)
      remC2.x = 300
      remC2.y = 680
-     remC2.width = 60
+     remC2.width = 80
      remC2.height = 80
      remC2.isVisible = true 
 
      --create first wrong quotient
-     remW3 = display.newImageRect("LongDivision/5.png", 0, 0, 0, 0)
+     remW3 = display.newImageRect("LongDivision/15.png", 0, 0, 0, 0)
      remW3.x = 500
      remW3.y = 680
      remW3.width = 80
@@ -943,7 +943,7 @@ local function randomOperation4()
      remW4 = display.newImageRect("LongDivision/12.png", 0, 0, 0, 0)
      remW4.x = 710
      remW4.y = 680
-     remW4.width = 60
+     remW4.width = 80
      remW4.height = 80
      remW4.isVisible = true
    end
