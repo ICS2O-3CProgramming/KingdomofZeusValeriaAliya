@@ -1581,7 +1581,7 @@ function scene:hide( event )
         if (levelCounter == 2) then
           key4.isVisible = false
         elseif(levelCounter == 1)then
-          key5.isVisible = false
+          key6.isVisible = false
         end
  
     elseif ( phase == "did" ) then

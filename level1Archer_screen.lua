@@ -80,6 +80,12 @@ local function openBook()
   transition.to(heart3, {alpha = 1, time = 700})
 end
 
+local function openBook2()
+  transition.to(bookClosed, {alpha = 0, time = 1000})
+  transition.to(questionText, {alpha = 1, time = 700})
+  transition.to(bookOpen, {alpha = 1, time = 700})
+end
+
 --this function moves the Archer
 local function moveArcher()
   transition.to(walkingArcher, { x = display.contentWidth/3*2, y = display.contentHeight/3*2})
@@ -326,9 +332,16 @@ local function hideQuestion()
   heart1.alpha = 0
   heart2.alpha = 0
   heart3.alpha = 0 
-  correct = correct
   print(correct)
   wrong = 3
+  print(wrong)
+end
+
+local function hideQuestion2()
+  bookOpen.alpha = 0
+  questionText.alpha = 0
+  correct = correct
+  print(correct)
   print(wrong)
 end
 
@@ -336,7 +349,7 @@ end
 local function pauseTransition()
   composer.showOverlay("pause1_screen", {isModal = true, effect = "fade", time = 500})
   RemoveImageAnswers()
-  hideQuestion()
+  hideQuestion2()
   pauseButton.alpha = 0 
   walkingArcher.alpha = 0
 end
@@ -345,9 +358,21 @@ end
 -- GLOBAL FUNCTIONS
 -- -----------------------------------------------------------------------------------
 function removePause1()
-   openBook()
+   openBook2()
    moveArcher2()
    RestartLevel1()
+   walkingArcher.alpha = 1
+   if (wrong == 2 ) then
+    print("wrong"..wrong)
+    heart1.alpha = 0
+    heart2.alpha = 1
+    heart3.alpha = 1
+  elseif (wrong == 1) then
+    heart2.alpha = 0
+    heart3.alpha = 1
+  elseif(wrong == 0 ) then
+    hearrt.alpha = 0
+  end
 end
 
 -- Function to Restart Level 1
@@ -368,7 +393,7 @@ function checkAnswersL1()
 
 
   elseif(wrong == 0) then
-     heart3.alpha = 0
+    heart3.alpha = 0
     composer.gotoScene("Lose_screen", {effect = "fade", time = 500})
     correctImage.isVisible = false
     incorrectImage1.isVisible = false
@@ -383,8 +408,7 @@ function checkAnswersL1()
     selectCounter = 0 + 1
     print ("counter"..selectCounter)
     
-  end
-  
+  end  
 end
 
 function playSound2()
