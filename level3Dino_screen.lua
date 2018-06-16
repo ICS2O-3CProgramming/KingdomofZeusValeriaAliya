@@ -28,6 +28,9 @@ local oven
 local microwave
 local pauseButton
 
+local bkgSound
+local bkgChannel
+
 --TIMER VARIABLES
 local clockText
 
@@ -47,6 +50,7 @@ totalSeconds2 = 60
 secondsLeft2 = 60
 minutesLeft2 = 1
 
+soundPressed = true
 
 -----------------------------------------
 --SOUND
@@ -177,6 +181,10 @@ end
     -- create a countdown timer that loops indefinetly
     countDownTimer2 = timer.performWithDelay(1000, UpdateTime2, 0)
     timerStarted2 = true
+  end
+
+  function playSound7()
+    bkgChannel = audio.play(bkgSound, {loop = -1, channel = 20})
   end
 
 -- -----------------------------------------------------------------------------------
@@ -405,6 +413,8 @@ function scene:create( event )
       instrText.alpha = 0
       sceneGroup:insert(instrText)
 
+      bkgSound = audio.loadStream("Sounds/level3.mp3")
+
       --Creating Play Button
     pauseButton = widget.newButton(
       {
@@ -465,6 +475,10 @@ function scene:show( event )
             StartTimer2()
             UpdateTime2()
         end
+
+        if (soundPressed == true) then
+          playSound7()
+        end
        
     end
 end
@@ -481,6 +495,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen      
+        audio.stop(20)
         
     end
 end

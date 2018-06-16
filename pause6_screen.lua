@@ -38,14 +38,16 @@ local mainButton
 ------------------------------------------------------------------------------------
 --creating sound button function
 local function soundOn1()
-   startWizzard()
+   playSound8()
+   soundPressed2 = true
    soundButtonOff.isVisible = false
    soundButtonOn.isVisible = true
 end
 
 --creating mute function
 local function soundOff1()
-  bkg.stop = audio.stop(3)
+  bkg.stop = audio.stop(21)
+  soundPressed2 = false
   soundButtonOn.isVisible = false
   soundButtonOff.isVisible = true
 end

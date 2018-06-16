@@ -28,6 +28,10 @@ local oven
 local microwave
 local pauseButton
 
+
+local bkgSound
+local bkgChannel
+
 --TIMER VARIABLES
 local clockText
 
@@ -44,20 +48,7 @@ secondsLeft1 = 60
 
 timerStarted = false
 
-
------------------------------------------
---SOUND
------------------------------------------
---- Background sound 
-
-
---correctSound
-
-
---magic sound
-
-
---this variable will set randomly the possition of the puzzles
+soundPressed2 = true
 
 --------------------------------------------
 --LOCAL FUNCTIONS
@@ -185,6 +176,9 @@ end
     timerStarted = true
   end
 
+  function playSound8()
+    bkgChannel = audio.play(bkgSound, {loop = -1, channel = 21})
+  end
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -409,6 +403,8 @@ function scene:create( event )
       instrText.alpha = 0
       sceneGroup:insert(instrText)
 
+      bkgSound = audio.loadStream("Sounds/level3.mp3")
+
            --Creating Play Button
     pauseButton = widget.newButton(
       {
@@ -468,6 +464,10 @@ function scene:show( event )
             StartTimer()
             UpdateTime()
         end
+
+        if (soundPressed2 == true) then
+          playSound8()
+        end
        
     end
 end
@@ -484,6 +484,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen      
+        audio.stop(21)
     end
 end
  
