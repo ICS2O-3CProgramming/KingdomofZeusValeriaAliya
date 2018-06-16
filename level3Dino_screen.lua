@@ -85,8 +85,8 @@ end
 --this functions checks the time
 local function checkTime()
    if (timerStarted2 == false) then
-        StartTimer2()
-        UpdateTime2()
+      StartTimer2()
+      UpdateTime2()
    end
 end
 
@@ -94,58 +94,109 @@ end
 local function Cupboard1Transition( )  
     levelCounter = 2   
     composer.gotoScene( "cupboard1_screen", {effect = "fade", time = 0}) 
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
 end 
 
 --this function transition to the second cupboard screen
 local function Cupboard2Transition( )  
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "cupboard2_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the third cupboard screen
 local function Cupboard3Transition( )  
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "cupboard3_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fourth cupboard screen
 local function Cupboard4Transition( )  
+
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "cupboard4_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fifth cupboard screen
-local function Cupboard5Transition( )  
+local function Cupboard5Transition( ) 
+   if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end 
     levelCounter = 2     
     composer.gotoScene( "cupboard5_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the drawers screen
 local function DrawersTransition( )  
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "drawers_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fridge screen
-local function FridgeTransition( )  
+local function FridgeTransition( ) 
+   if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end 
     levelCounter = 2     
     composer.gotoScene( "fridge_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the microwave screen
 local function MicrowaveTransition( )
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
    levelCounter = 2      
    composer.gotoScene( "microwave_screen", {effect = "fade", time = 0})    
 end 
 
 --this function transition to the oven screen
 local function OvenTransition( )
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
    levelCounter = 2      
    composer.gotoScene( "oven_screen", {effect = "fade", time = 0})    
 end
 
 --this function transition to the pause screen
 local function pauseTransition()
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
   composer.showOverlay("pause5_screen", {isModal = true, effect = "fade", time = 500})
   StopTimer2()
 end
@@ -170,6 +221,7 @@ end
     if (secondsLeft2 < 0) then
       StopTimer2()
       composer.gotoScene("Lose_screen", {effect = "fade", time = 1000})      
+      audio.stop(20)
       key1Touched = false
       key3Touched = false
       key4Touched = false
@@ -495,7 +547,6 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen      
-        audio.stop(20)
         
     end
 end

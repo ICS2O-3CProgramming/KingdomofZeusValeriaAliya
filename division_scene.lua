@@ -167,10 +167,14 @@ end
 local function checkAnswers()
   if (mathCounter == 3 ) then
     composer.gotoScene( "Win_screen", {effect = "fade", time = 0}) 
+    
+
     if (levelCounter == 2) then
        StopTimer2()
+       audio.stop(20)
     elseif (levelCounter == 1) then
        StopTimer()
+       audio.stop(21)
     end
   end
 end
