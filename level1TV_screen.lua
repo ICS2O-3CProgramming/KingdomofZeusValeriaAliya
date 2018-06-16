@@ -80,6 +80,13 @@ local function openBook()
   transition.to(heart3, {alpha = 1, time = 700})
 end
 
+local function openBook2()
+  transition.to(bookClosed, {alpha = 0, time = 1000})
+  transition.to(questionText, {alpha = 1, time = 700})
+  transition.to(bookOpen, {alpha = 1, time = 700})
+  
+end
+
 --this function moves the Tv
 local function moveTv()
   transition.to(Tv, { x = display.contentWidth/3*2, y = display.contentHeight/3*2})
@@ -320,9 +327,16 @@ local function hideQuestion()
   heart1.alpha = 0
   heart2.alpha = 0
   heart3.alpha = 0 
-  correct = correct
   print(correct)
   wrong = 3
+  print(wrong)
+end
+
+local function hideQuestion2()
+  bookOpen.alpha = 0
+  questionText.alpha = 0
+  correct = correct
+  print(correct)
   print(wrong)
 end
 
@@ -330,7 +344,7 @@ end
 local function pauseTransition()
   composer.showOverlay("pause2_screen", {isModal = true, effect = "fade", time = 500})
   RemoveImageAnswers()
-  hideQuestion()
+  hideQuestion2()
   pauseButton.alpha = 0 
   Tv.alpha = 0
 end
@@ -346,7 +360,7 @@ function RemoveEventListenersTv()
 end 
 
 function removePause2()
-   openBook()
+   openBook2()
    moveTv2()
    RestartLevelTV1()
    Tv.alpha = 1
