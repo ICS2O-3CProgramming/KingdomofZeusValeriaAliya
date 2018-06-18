@@ -37,6 +37,8 @@ local bkgChannel
 ------------------------------------------------------------------------------------
 selectCounter = 0
 
+soundPressed7 = true
+
 -------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------
@@ -77,9 +79,10 @@ end
 ------------------------------------------------------------------------------------------------
 --creating sound button function
 function soundOn()
-   bkgChannel = audio.play(bkgSound)
+   turnSound()
    soundButtonOff.isVisible = false
    soundButtonOn.isVisible = true
+   soundPressed7 = true
 end
 
 --creating mute function
@@ -87,6 +90,11 @@ function soundOff()
   audio.stop(1)
   soundButtonOn.isVisible = false
   soundButtonOff.isVisible = true
+  soundPressed7 = false
+end
+
+function turnSound()
+  bkgChannel = audio.play(bkgSound,{loop = -1, channel = 1})
 end
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
@@ -243,6 +251,10 @@ function scene:create( event )
     soundButtonOff.isVisible = false
     --Associating display objects with this scene
     sceneGroup:insert(soundButtonOff)
+  
+  --When the scene appears for the first time play the music
+  soundPressed7 = true
+
 end
  
  
@@ -259,8 +271,12 @@ function scene:show( event )
         -- Code here runs when the scene is entirely on screen
          timer.performWithDelay(1000,  moveTitle)
          glowTitle()
-         bkgChannel = audio.play(bkgSound,{ channel=1, loops=-1 })
- 
+
+          if (soundPressed7 == true) then
+            turnSound()
+          elseif(soundPressed7 == false) then
+            audio.stop(1)
+          end 
     end
 end
  

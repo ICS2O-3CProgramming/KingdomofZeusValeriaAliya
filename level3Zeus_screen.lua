@@ -28,6 +28,10 @@ local oven
 local microwave
 local pauseButton
 
+
+local bkgSound
+local bkgChannel
+
 --TIMER VARIABLES
 local clockText
 
@@ -44,20 +48,7 @@ secondsLeft1 = 60
 
 timerStarted = false
 
-
------------------------------------------
---SOUND
------------------------------------------
---- Background sound 
-
-
---correctSound
-
-
---magic sound
-
-
---this variable will set randomly the possition of the puzzles
+soundPressed2 = true
 
 --------------------------------------------
 --LOCAL FUNCTIONS
@@ -92,61 +83,111 @@ local function checkTime()
 end
 
 --this function transition to the first cupboard screen
-local function Cupboard1Transition( )  
+local function Cupboard1Transition( ) 
+  if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
     levelCounter = 1     
     composer.gotoScene( "cupboard1_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the second cupboard screen
-local function Cupboard2Transition( )  
+local function Cupboard2Transition( ) 
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
     levelCounter = 1     
     composer.gotoScene( "cupboard2_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the third cupboard screen
 local function Cupboard3Transition( )  
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
     levelCounter = 1     
     composer.gotoScene( "cupboard3_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fourth cupboard screen
-local function Cupboard4Transition( )  
+local function Cupboard4Transition( ) 
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end  
     levelCounter = 1     
     composer.gotoScene( "cupboard4_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fifth cupboard screen
 local function Cupboard5Transition( )  
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
     levelCounter = 1     
     composer.gotoScene( "cupboard5_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the drawers screen
 local function DrawersTransition( )  
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
     levelCounter = 1     
     composer.gotoScene( "drawers_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fridge screen
-local function FridgeTransition( )  
+local function FridgeTransition( )
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end   
     levelCounter = 1     
     composer.gotoScene( "fridge_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the oven screen
-local function OvenTransition( )  
+local function OvenTransition( ) 
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end  
     levelCounter = 1     
     composer.gotoScene( "oven_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the microwave screen
 local function MicrowaveTransition( )  
+    if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
     levelCounter = 1     
     composer.gotoScene( "microwave_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the pause screen
 local function pauseTransition()
+   if (soundPressed2 == false) then
+      audio.stop(21)
+    else
+      playSound8()
+    end 
   composer.showOverlay("pause6_screen", {isModal = true, effect = "fade", time = 500})
   StopTimer()
 end
@@ -172,6 +213,7 @@ end
     if (secondsLeft1 < 0) then
       StopTimer()
       composer.gotoScene("Lose_screen", {effect = "fade", time = 1000})      
+      audio.stop(21)
       key2Touched = false
       key5Touched = false
       key6Touched = false
@@ -185,6 +227,9 @@ end
     timerStarted = true
   end
 
+  function playSound8()
+    bkgChannel = audio.play(bkgSound, {loop = -1, channel = 21})
+  end
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -409,6 +454,8 @@ function scene:create( event )
       instrText.alpha = 0
       sceneGroup:insert(instrText)
 
+      bkgSound = audio.loadStream("Sounds/level3.mp3")
+
            --Creating Play Button
     pauseButton = widget.newButton(
       {
@@ -468,6 +515,10 @@ function scene:show( event )
             StartTimer()
             UpdateTime()
         end
+
+        if (soundPressed2 == true) then
+          playSound8()
+        end
        
     end
 end
@@ -484,6 +535,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen      
+        
     end
 end
  

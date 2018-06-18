@@ -1040,7 +1040,7 @@ function scene:create( event )
     --create the faded puzzle pieces
     --------------------------------------------------------------
     --first piece
-    pieceF1 = display.newImageRect("PuzzleFade/1Piece.png", 0, 0, 0, 0)
+    pieceF1 = display.newImageRect("PuzzleFade2/1Piece.png", 0, 0, 0, 0)
     pieceF1.x = 330
     pieceF1.y = 130
     pieceF1.width = 180
@@ -1049,7 +1049,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF1)
     
     --second piece
-    pieceF2 = display.newImageRect("PuzzleFade/2Piece.png", 0, 0, 0, 0)
+    pieceF2 = display.newImageRect("PuzzleFade2/2Piece.png", 0, 0, 0, 0)
     pieceF2.x = 510
     pieceF2.y = 130
     pieceF2.width = 180
@@ -1058,7 +1058,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF2)
 
     --third piece
-    pieceF3 = display.newImageRect("PuzzleFade/3Piece.png", 0, 0, 0, 0)
+    pieceF3 = display.newImageRect("PuzzleFade2/3Piece.png", 0, 0, 0, 0)
     pieceF3.x = 690
     pieceF3.y = 130
     pieceF3.width = 180
@@ -1067,7 +1067,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF3)
 
     --fourth piece
-    pieceF4 = display.newImageRect("PuzzleFade/4Piece.png", 0, 0, 0, 0)
+    pieceF4 = display.newImageRect("PuzzleFade2/4Piece.png", 0, 0, 0, 0)
     pieceF4.x = 330
     pieceF4.y = 310
     pieceF4.width = 180
@@ -1076,7 +1076,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF4)
 
     --fifth piece
-    pieceF5 = display.newImageRect("PuzzleFade/5Piece.png", 0, 0, 0, 0)
+    pieceF5 = display.newImageRect("PuzzleFade2/5Piece.png", 0, 0, 0, 0)
     pieceF5.x = 510
     pieceF5.y = 310
     pieceF5.width = 180
@@ -1085,7 +1085,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF5)
 
     --sixth piece
-    pieceF6 = display.newImageRect("PuzzleFade/6Piece.png", 0, 0, 0, 0)
+    pieceF6 = display.newImageRect("PuzzleFade2/6Piece.png", 0, 0, 0, 0)
     pieceF6.x = 690
     pieceF6.y = 310
     pieceF6.width = 180
@@ -1094,7 +1094,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF6)
 
     --seventh piece
-    pieceF7 = display.newImageRect("PuzzleFade/7Piece.png", 0, 0, 0, 0)
+    pieceF7 = display.newImageRect("PuzzleFade2/7Piece.png", 0, 0, 0, 0)
     pieceF7.x = 330
     pieceF7.y = 490
     pieceF7.width = 180
@@ -1103,7 +1103,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF7)
 
     --eighth piece
-    pieceF8 = display.newImageRect("PuzzleFade/8Piece.png", 0, 0, 0, 0)
+    pieceF8 = display.newImageRect("PuzzleFade2/8Piece.png", 0, 0, 0, 0)
     pieceF8.x = 510
     pieceF8.y = 490
     pieceF8.width = 180
@@ -1112,7 +1112,7 @@ function scene:create( event )
     sceneGroup:insert(pieceF8)
 
     --nineth piece
-    pieceF9 = display.newImageRect("PuzzleFade/9Piece.png", 0, 0, 0, 0)
+    pieceF9 = display.newImageRect("PuzzleFade2/9Piece.png", 0, 0, 0, 0)
     pieceF9.x = 690
     pieceF9.y = 490
     pieceF9.width = 180
@@ -1124,7 +1124,7 @@ function scene:create( event )
     --create the  puzzle pieces
     --------------------------------------------------------------
     --first piece
-    piece1 = display.newImageRect("Puzzle/1Piece.png", 0, 0, 0, 0)
+    piece1 = display.newImageRect("Puzzle2/1Piece.png", 0, 0, 0, 0)
     piece1.x = 120
     piece1.y = 90
     piece1.width = 120
@@ -1133,7 +1133,7 @@ function scene:create( event )
     sceneGroup:insert(piece1)
 
     --second piece
-    piece2 = display.newImageRect("Puzzle/2Piece.png", 0, 0, 0, 0)
+    piece2 = display.newImageRect("Puzzle2/2Piece.png", 0, 0, 0, 0)
     piece2.x = 910
     piece2.y = 295
     piece2.width = 120
@@ -1142,7 +1142,7 @@ function scene:create( event )
     sceneGroup:insert(piece2)
 
     --third piece
-    piece3 = display.newImageRect("Puzzle/3Piece.png", 0, 0, 0, 0)
+    piece3 = display.newImageRect("Puzzle2/3Piece.png", 0, 0, 0, 0)
     piece3.x = 120
     piece3.y = 680
     piece3.width = 120
@@ -1151,7 +1151,7 @@ function scene:create( event )
     sceneGroup:insert(piece3)
 
     --fourth piece
-    piece4 = display.newImageRect("Puzzle/4Piece.png", 0, 0, 0, 0)
+    piece4 = display.newImageRect("Puzzle2/4Piece.png", 0, 0, 0, 0)
     piece4.x = 910
     piece4.y = 485
     piece4.width = 120
@@ -1160,7 +1160,7 @@ function scene:create( event )
     sceneGroup:insert(piece4)
 
     --fifth piece
-    piece5 = display.newImageRect("Puzzle/5Piece.png", 0, 0, 0, 0)
+    piece5 = display.newImageRect("Puzzle2/5Piece.png", 0, 0, 0, 0)
     piece5.x = 120
     piece5.y = 295
     piece5.width = 120
@@ -1169,7 +1169,7 @@ function scene:create( event )
     sceneGroup:insert(piece5)
 
     --sixth piece
-    piece6 = display.newImageRect("Puzzle/6Piece.png", 0, 0, 0, 0)
+    piece6 = display.newImageRect("Puzzle2/6Piece.png", 0, 0, 0, 0)
     piece6.x = 910
     piece6.y = 680
     piece6.width = 120
@@ -1178,7 +1178,7 @@ function scene:create( event )
     sceneGroup:insert(piece6)
 
     --seventh piece
-    piece7 = display.newImageRect("Puzzle/7Piece.png", 0, 0, 0, 0)
+    piece7 = display.newImageRect("Puzzle2/7Piece.png", 0, 0, 0, 0)
     piece7.x = 910
     piece7.y = 90
     piece7.width = 120
@@ -1187,7 +1187,7 @@ function scene:create( event )
     sceneGroup:insert(piece7)
 
     --eigth piece
-    piece8 = display.newImageRect("Puzzle/8Piece.png", 0, 0, 0, 0)
+    piece8 = display.newImageRect("Puzzle2/8Piece.png", 0, 0, 0, 0)
     piece8.x = 500
     piece8.y = 680
     piece8.width = 120
@@ -1196,7 +1196,7 @@ function scene:create( event )
     sceneGroup:insert(piece8)
 
     --nineth piece
-    piece9 = display.newImageRect("Puzzle/9Piece.png", 0, 0, 0, 0)
+    piece9 = display.newImageRect("Puzzle2/9Piece.png", 0, 0, 0, 0)
     piece9.x = 120
     piece9.y = 485
     piece9.width = 120

@@ -28,6 +28,9 @@ local oven
 local microwave
 local pauseButton
 
+local bkgSound
+local bkgChannel
+
 --TIMER VARIABLES
 local clockText
 
@@ -57,6 +60,7 @@ totalSeconds2 = 60
 secondsLeft2 = 60
 minutesLeft2 = 1
 
+soundPressed = true
 
 -----------------------------------------
 --SOUND
@@ -92,8 +96,8 @@ end
 --this functions checks the time
 local function checkTime()
    if (timerStarted2 == false) then
-        StartTimer2()
-        UpdateTime2()
+      StartTimer2()
+      UpdateTime2()
    end
 end
 
@@ -101,58 +105,109 @@ end
 local function Cupboard1Transition( )  
     levelCounter = 2   
     composer.gotoScene( "cupboard1_screen", {effect = "fade", time = 0}) 
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
 end 
 
 --this function transition to the second cupboard screen
 local function Cupboard2Transition( )  
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "cupboard2_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the third cupboard screen
 local function Cupboard3Transition( )  
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "cupboard3_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fourth cupboard screen
 local function Cupboard4Transition( )  
+
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "cupboard4_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fifth cupboard screen
-local function Cupboard5Transition( )  
+local function Cupboard5Transition( ) 
+   if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end 
     levelCounter = 2     
     composer.gotoScene( "cupboard5_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the drawers screen
 local function DrawersTransition( )  
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
     levelCounter = 2     
     composer.gotoScene( "drawers_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the fridge screen
-local function FridgeTransition( )  
+local function FridgeTransition( ) 
+   if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end 
     levelCounter = 2     
     composer.gotoScene( "fridge_screen", {effect = "fade", time = 0}) 
 end 
 
 --this function transition to the microwave screen
 local function MicrowaveTransition( )
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
    levelCounter = 2      
    composer.gotoScene( "microwave_screen", {effect = "fade", time = 0})    
 end 
 
 --this function transition to the oven screen
 local function OvenTransition( )
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
    levelCounter = 2      
    composer.gotoScene( "oven_screen", {effect = "fade", time = 0})    
 end
 
 --this function transition to the pause screen
 local function pauseTransition()
+    if (soundPressed == false) then
+      audio.stop(20)
+    else
+      playSound7()
+    end
   composer.showOverlay("pause5_screen", {isModal = true, effect = "fade", time = 500})
   StopTimer2()
 end
@@ -177,6 +232,7 @@ end
     if (secondsLeft2 < 0) then
       StopTimer2()
       composer.gotoScene("Lose_screen", {effect = "fade", time = 1000})      
+      audio.stop(20)
       key1Touched = false
       key3Touched = false
       key4Touched = false
@@ -188,6 +244,10 @@ end
     -- create a countdown timer that loops indefinetly
     countDownTimer2 = timer.performWithDelay(1000, UpdateTime2, 0)
     timerStarted2 = true
+  end
+
+  function playSound7()
+    bkgChannel = audio.play(bkgSound, {loop = -1, channel = 20})
   end
 
 -- -----------------------------------------------------------------------------------
@@ -416,6 +476,8 @@ function scene:create( event )
       instrText.alpha = 0
       sceneGroup:insert(instrText)
 
+      bkgSound = audio.loadStream("Sounds/level3.mp3")
+
       --Creating Play Button
     pauseButton = widget.newButton(
       {
@@ -475,6 +537,10 @@ function scene:show( event )
         if (timerStarted2 == false) then
             StartTimer2()
             UpdateTime2()
+        end
+
+        if (soundPressed == true) then
+          playSound7()
         end
        
     end
