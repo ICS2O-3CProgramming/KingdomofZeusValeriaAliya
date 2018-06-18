@@ -38,6 +38,16 @@ local dino
 local instructions
 local instrText
 
+--background sound
+local bkgSound
+local bkgChannel
+local bkgStop
+
+
+
+local passedLevel
+
+
 ---------------------------------------------------------------------------------------
 --GLOBAL VARIABLES
 ---------------------------------------------------------------------------------------
@@ -56,6 +66,7 @@ soundPressed = true
 --SOUND
 -----------------------------------------
 --- Background sound 
+  bkgSound = audio.loadStream("Sounds/XYLOJUNG(2).wav")
 
 --------------------------------------------
 --LOCAL FUNCTIONS
