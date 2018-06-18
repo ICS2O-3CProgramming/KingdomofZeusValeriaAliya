@@ -27,24 +27,20 @@ local bkgStop
 local resumeButton
 local mainButton
 
-
---------------------------
---SOUND
---------------------------
-
-
 -------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------
 --creating sound button function
 local function soundOn1()
    playSoundTv()
+   soundPressed4 = true
    soundButtonOff.isVisible = false
    soundButtonOn.isVisible = true
 end
 
 --creating mute function
 local function soundOff1()
+  soundPressed4 = false
   bkg.stop = audio.stop(15)
   soundButtonOn.isVisible = false
   soundButtonOff.isVisible = true
@@ -189,7 +185,6 @@ function scene:create( event )
     mainButton.isVisible = true
     --Associating display objects with this scene
     sceneGroup:insert(mainButton)
-
     
     
 end
@@ -203,10 +198,16 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+
+        if (soundPressed4 == true) then
+            soundOn1()
+        elseif(soundPressed4 == false) then
+            soundOff1()
+        end 
+        
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        
  
     end
 end

@@ -60,6 +60,8 @@ end
 --this function transition to the main menu
 local function menuTransition()
   composer.gotoScene("main_menu", {effect = "fade", time = 500})
+  StopTimer2()
+  audio.stop(20)
 end
 -----------------------------------------------------------------------------------------
 
@@ -204,10 +206,16 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        if (soundPressed == true) then
+            soundOn1()
+        elseif(soundPressed == false) then
+            soundOff1()
+        end 
+        
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        
+
  
     end
 end

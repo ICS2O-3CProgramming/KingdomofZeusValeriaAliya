@@ -27,17 +27,12 @@ local bkgStop
 local resumeButton
 local mainButton
 
-
---------------------------
---SOUND
---------------------------
-
-
 -------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------
 --creating sound button function
 local function soundOn1()
+    soundPressed6 = true
    startWizzard()
    soundButtonOff.isVisible = false
    soundButtonOn.isVisible = true
@@ -45,6 +40,7 @@ end
 
 --creating mute function
 local function soundOff1()
+  soundPressed6 = false
   bkg.stop = audio.stop(3)
   soundButtonOn.isVisible = false
   soundButtonOff.isVisible = true
@@ -202,6 +198,11 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        if (soundPressed6 == true) then
+            soundOn1()
+        elseif(soundPressed6 == false) then
+            soundOff1()
+        end 
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
